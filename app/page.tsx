@@ -112,52 +112,62 @@ export default function Home() {
   return (
     <main className="page-shell">
       <header className="topbar">
-        <a className="brand" href="#inicio">
-          <span className="brand__mark">S</span>
-          <span className="brand__text">
-            <strong>SANALAB</strong>
-            <small>Bienestar digestivo y alimentación consciente</small>
-          </span>
-        </a>
+        <div className="topbar__inner">
+          <a className="brand" href="#inicio">
+            <img
+              className="brand__logo"
+              src="/img/SANALAB%20LOGO%20FONDO%20TRANPARENTE%20recortado.png"
+              alt="SANALAB"
+            />
+          </a>
 
-        <nav className="topbar__nav" aria-label="Principal">
-          <a href="#sobre">Sobre SANALAB</a>
-          <a href="#temas">Temas</a>
-          <a href="#ebooks">Ebooks</a>
-          <a href="#preguntas">Preguntas frecuentes</a>
-          <a href="#whatsapp">WhatsApp</a>
-        </nav>
+          <nav className="topbar__nav" aria-label="Principal">
+            <a href="#sobre">Sobre SANALAB</a>
+            <a href="#temas">Temas</a>
+            <a href="#ebooks">Ebooks</a>
+            <a href="#preguntas">Preguntas frecuentes</a>
+            <a href="#whatsapp">WhatsApp</a>
+          </nav>
+        </div>
       </header>
 
       <section className="hero hero--website" id="inicio">
-        <div className="hero__content">
-          <p className="eyebrow">Plataforma de bienestar integral</p>
-          <h1>Entender tu cuerpo también puede ser simple</h1>
-          <p className="hero__description">
-            SANALAB comparte contenido claro y cercano sobre microbiota,
-            digestión, inflamación, alimentación saludable y hábitos
-            sostenibles. Nuestros ebooks reúnen esa información en formatos
-            prácticos para acompañarte en tu vida cotidiana.
-          </p>
-
-          <div className="hero__actions">
-            <a className="button button--primary" href="#ebooks">
-              Explorar ebooks
-            </a>
-            <a className="button button--secondary" href="#sobre">
-              Conocer SANALAB
-            </a>
-          </div>
-
-          <ul className="hero__highlights" aria-label="Temas principales">
-            <li>Digestión</li>
-            <li>Microbiota</li>
-            <li>Alimentación consciente</li>
-            <li>Hábitos sostenibles</li>
-          </ul>
+        <div className="hero__backdrop" aria-hidden="true">
+          <img className="hero__backdrop-image" src="/img/hero.png" alt="" />
         </div>
 
-        <aside className="hero-panel" aria-label="Resumen de SANALAB">
+        <div className="hero__inner">
+          <div className="hero__content">
+            <p className="eyebrow">Plataforma de bienestar integral</p>
+            <h1>Entender tu cuerpo también puede ser simple</h1>
+            <p className="hero__description">
+              SANALAB comparte contenido claro y cercano sobre microbiota,
+              digestión, inflamación, alimentación saludable y hábitos
+              sostenibles. Nuestros ebooks reúnen esa información en formatos
+              prácticos para acompañarte en tu vida cotidiana.
+            </p>
+
+            <div className="hero__actions">
+              <a className="button button--primary" href="#ebooks">
+                Explorar ebooks
+              </a>
+              <a className="button button--secondary" href="#sobre">
+                Conocer SANALAB
+              </a>
+            </div>
+
+            <ul className="hero__highlights" aria-label="Temas principales">
+              <li>Digestión</li>
+              <li>Microbiota</li>
+              <li>Alimentación consciente</li>
+              <li>Hábitos sostenibles</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="hero-support" aria-label="Resumen de SANALAB">
+        <aside className="hero-panel hero-panel--support">
           <div className="hero-panel__section">
             <span className="hero-panel__label">Qué vas a encontrar</span>
             <ul className="hero-panel__list">

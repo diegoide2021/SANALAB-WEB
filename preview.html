@@ -20,13 +20,61 @@
         --radius-lg: 24px;
         --radius-md: 18px;
         --container: min(1160px, calc(100% - 1.25rem));
+        --font-body: "Nunito Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+        --font-accent: "Josefin Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      }
+      @font-face {
+        font-family: "Nunito Sans";
+        src: url("/fonts/Nunito_Sans/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf") format("truetype");
+        font-style: normal;
+        font-weight: 200 1000;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Nunito Sans";
+        src: url("/fonts/Nunito_Sans/NunitoSans-Italic-VariableFont_YTLC,opsz,wdth,wght.ttf") format("truetype");
+        font-style: italic;
+        font-weight: 200 1000;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Cormorant Garamond";
+        src: url("/fonts/Cormorant_Garamond/CormorantGaramond-VariableFont_wght.ttf") format("truetype");
+        font-style: normal;
+        font-weight: 300 700;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Cormorant Garamond";
+        src: url("/fonts/Cormorant_Garamond/CormorantGaramond-Italic-VariableFont_wght.ttf") format("truetype");
+        font-style: italic;
+        font-weight: 300 700;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Josefin Sans";
+        src: url("/fonts/Josefin_Sans/JosefinSans-VariableFont_wght.ttf") format("truetype");
+        font-style: normal;
+        font-weight: 100 700;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Josefin Sans";
+        src: url("/fonts/Josefin_Sans/JosefinSans-Italic-VariableFont_wght.ttf") format("truetype");
+        font-style: italic;
+        font-weight: 100 700;
+        font-display: swap;
       }
       * { box-sizing: border-box; }
       html { scroll-behavior: smooth; }
       body {
         margin: 0;
         color: var(--ink);
-        font-family: "Josefin Sans", "Segoe UI", Arial, sans-serif;
+        font-family: var(--font-body);
+        font-style: normal;
+        font-synthesis: none;
+        font-optical-sizing: auto;
         background:
           radial-gradient(circle at top left, rgba(231, 197, 168, 0.45), transparent 28%),
           radial-gradient(circle at top right, rgba(95, 127, 82, 0.12), transparent 24%),
@@ -38,35 +86,74 @@
         margin: 0 auto;
       }
       .topbar {
-        padding: 1rem 0 0.75rem;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0.6rem 0;
         position: sticky;
         top: 0;
         z-index: 20;
+        background: rgba(248, 242, 232, 0.88);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(95, 127, 82, 0.08);
+        box-shadow: 0 10px 30px rgba(71, 85, 66, 0.06);
+      }
+      .topbar__inner {
+        width: var(--container);
+        margin: 0 auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
         gap: 1rem;
-        background: rgba(248, 242, 232, 0.84);
-        backdrop-filter: blur(14px);
+        padding-bottom: 0;
       }
-      .brand { display: inline-flex; gap: 0.75rem; align-items: center; }
-      .brand__mark {
-        width: 2.75rem; height: 2.75rem; border-radius: 50%;
-        display: grid; place-items: center; color: #fff; font-weight: 700;
-        background: linear-gradient(135deg, var(--primary), var(--accent));
-        box-shadow: var(--shadow);
-      }
-      .brand__text { display: grid; gap: 0.15rem; }
-      .brand__text strong { letter-spacing: 0.08em; font-size: 0.95rem; }
-      .brand__text small { color: var(--muted); font-size: 0.8rem; }
-      .nav { display: flex; flex-wrap: wrap; gap: 1rem 1.25rem; color: var(--muted); font-size: 0.95rem; }
+      .brand { display: inline-flex; align-items: center; line-height: 0; }
+      .brand__logo { display: block; width: auto; height: 3.1rem; max-width: min(24rem, 42vw); object-fit: contain; }
+      .nav { display: flex; flex-wrap: wrap; gap: 1rem 1.25rem; color: var(--muted); font-size: 0.95rem; font-family: var(--font-accent); }
       .hero {
         padding: 3.25rem 0 2.5rem;
         display: grid;
-        grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        position: relative;
+        overflow: hidden;
+        align-items: center;
+        min-height: clamp(32rem, 62vw, 44rem);
+      }
+      .hero__inner {
+        width: var(--container);
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
         gap: 2rem;
         align-items: center;
       }
+      .hero__backdrop { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+      .hero__backdrop::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, rgba(248, 242, 232, 0.96) 0%, rgba(248, 242, 232, 0.9) 22%, rgba(248, 242, 232, 0.42) 58%, rgba(248, 242, 232, 0.2) 100%),
+          linear-gradient(180deg, rgba(248, 242, 232, 0.12) 0%, rgba(248, 242, 232, 0.42) 100%);
+        z-index: 1;
+      }
+      .hero__backdrop::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 74% 26%, rgba(255, 229, 181, 0.3), transparent 28%),
+          radial-gradient(circle at 16% 82%, rgba(93, 164, 167, 0.18), transparent 24%);
+        z-index: 1;
+      }
+      .hero__backdrop-image { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center right; transform: scale(1.02); }
+      .hero__content { width: 100%; min-width: 0; align-self: center; position: relative; z-index: 1; max-width: 48rem; padding: 0; border: 0; background: transparent; box-shadow: none; text-shadow: 0 1px 1px rgba(255,255,255,0.35); }
       .eyebrow {
         display: inline-flex;
         align-items: center;
@@ -76,6 +163,7 @@
         font-size: 0.76rem;
         color: var(--primary-deep);
         font-weight: 700;
+        font-family: var(--font-accent);
       }
       .eyebrow::before { content: ""; width: 1.4rem; height: 1px; background: currentColor; }
       h1, h2, h3, p { margin: 0; }
@@ -83,10 +171,14 @@
         margin-top: 1rem;
         font-size: clamp(2.5rem, 7vw, 4.5rem);
         line-height: 1;
-        max-width: 11ch;
+        max-width: none;
+        font-family: var(--font-display);
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        text-wrap: balance;
       }
-      .hero p, .copy, .topic p, .faq p, .footer p, .benefit li { color: var(--muted); line-height: 1.7; font-size: 1.02rem; }
-      .hero__description { margin-top: 1.25rem; max-width: 58ch; }
+      .hero p, .copy, .topic p, .faq p, .footer p, .benefit li { color: var(--muted); line-height: 1.7; font-size: 1.02rem; font-family: var(--font-body); }
+      .hero__description { margin-top: 1.25rem; max-width: 66ch; }
       .actions { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-top: 2rem; }
       .button {
         min-height: 3.25rem;
@@ -94,6 +186,7 @@
         border-radius: 999px;
         display: inline-flex; align-items: center; justify-content: center;
         font-weight: 700;
+        font-family: var(--font-accent);
       }
       .button--primary { background: var(--primary); color: #fff; box-shadow: 0 14px 30px rgba(69, 99, 64, 0.22); }
       .button--secondary { border: 1px solid rgba(95, 127, 82, 0.2); background: rgba(255,255,255,0.56); color: var(--primary-deep); }
@@ -105,11 +198,13 @@
         backdrop-filter: blur(12px);
         box-shadow: var(--shadow);
       }
-      .hero-panel { padding: 1.35rem; border-radius: var(--radius-xl); display: grid; gap: 1rem; }
+      .hero-panel { padding: 1.35rem; border-radius: var(--radius-xl); display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 1rem; position: relative; z-index: 1; }
+      .hero-support { width: var(--container); margin: -0.5rem auto 0; padding-bottom: 3.5rem; }
+      .hero-panel--support { position: relative; z-index: 1; }
       .hero-panel__section { padding: 1.25rem; border-radius: var(--radius-lg); background: rgba(255,255,255,0.55); border: 1px solid rgba(95,127,82,0.1); display: grid; gap: 0.9rem; }
       .hero-panel__section--accent { background: linear-gradient(180deg, rgba(239,228,211,0.8), rgba(255,255,255,0.7)); }
-      .hero-panel__label { font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--primary-deep); font-weight: 700; }
-      .hero-panel__list { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.75rem; color: var(--muted); }
+      .hero-panel__label { font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--primary-deep); font-weight: 700; font-family: var(--font-accent); }
+      .hero-panel__list { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.75rem; color: var(--muted); font-family: var(--font-body); }
       .hero-panel__stack { min-height: 8rem; position: relative; }
       .hero-panel__book { position: absolute; width: 5.25rem; height: 7.5rem; border-radius: 1rem; box-shadow: 0 12px 28px rgba(65,57,43,0.16); }
       .hero-panel__book--one { left: 0.5rem; top: 0.7rem; transform: rotate(-12deg); background: linear-gradient(180deg, #6c8b6d, #3f5f47); }
@@ -129,87 +224,100 @@
       .card, .topic, .ebook, .step, .faq, .cta { border-radius: var(--radius-lg); }
       .card { padding: 2rem; }
       .card--accent { background: linear-gradient(180deg, rgba(239,228,211,0.88), rgba(255,250,244,0.92)); }
-      .section h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; }
+      .section h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; }
       .topics { margin-top: 2.4rem; }
       .topic { padding: 1.5rem; }
-      .topic h3 { font-size: 1.3rem; margin-bottom: 0.75rem; }
+      .topic h3 { font-size: 1.3rem; margin-bottom: 0.75rem; font-family: var(--font-display); font-weight: 600; }
       .ebook { overflow: hidden; }
       .ebook__cover { min-height: 14rem; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; color: #fff; background: linear-gradient(180deg, rgba(95,127,82,0.96), rgba(62,93,58,1)); }
       .ebook:nth-child(2) .ebook__cover { background: linear-gradient(180deg, rgba(197,141,98,0.96), rgba(166,109,69,1)); }
       .ebook:nth-child(3) .ebook__cover { background: linear-gradient(180deg, rgba(125,156,101,0.98), rgba(84,110,67,1)); }
       .ebook__body { padding: 1.5rem; display: grid; gap: 1rem; }
-      .ebook__title { font-size: 1.4rem; line-height: 1.1; }
+      .ebook__title { font-size: 1.4rem; line-height: 1.1; font-family: var(--font-display); font-weight: 600; }
       .benefit { margin-top: 2rem; display: grid; gap: 1rem; padding: 0; list-style: none; }
       .benefit li, .ebook__body p { color: var(--muted); }
       .benefit li { position: relative; padding-left: 1.5rem; }
       .benefit li::before { content: ""; position: absolute; left: 0; top: 0.72rem; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--accent); }
       .ebook__footer { display: grid; gap: 1rem; }
-      .ebook__price { font-weight: 700; color: var(--primary-deep); }
+      .ebook__price { font-weight: 700; color: var(--primary-deep); font-family: var(--font-accent); }
       .steps { margin-top: 2.2rem; grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .step { padding: 1.5rem; min-height: 13rem; display: grid; align-content: space-between; }
-      .step__num { font-size: 2.4rem; color: var(--accent); font-weight: 700; }
+      .step__num { font-size: 2.4rem; color: var(--accent); font-weight: 700; font-family: var(--font-display); }
       .cta { padding: 2rem; display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; }
       .faq-wrap { max-width: 52rem; margin: 2.4rem auto 0; display: grid; gap: 1rem; }
       .faq { padding: 1.25rem 1.35rem; }
-      .faq summary { cursor: pointer; list-style: none; font-weight: 700; display: flex; justify-content: space-between; gap: 1rem; }
+      .faq summary { cursor: pointer; list-style: none; font-weight: 700; display: flex; justify-content: space-between; gap: 1rem; font-family: var(--font-accent); }
       .faq summary::-webkit-details-marker { display: none; }
       .faq p { margin-top: 0.9rem; }
       .footer { padding: 2.25rem 0 3rem; display: grid; gap: 1rem; }
-      .footer__links { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; color: var(--muted); }
+      .footer__links { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; color: var(--muted); font-family: var(--font-accent); }
       @media (max-width: 1024px) {
         .hero, .grid--two, .cta { grid-template-columns: 1fr; display: grid; }
         .grid--three { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .hero__inner { width: var(--container); grid-template-columns: 1fr; }
+        .hero-panel { grid-template-columns: 1fr; }
+        .hero-support { margin-top: 0; }
+        .hero__content { max-width: 100%; }
+        .hero__backdrop-image { object-position: 72% center; }
       }
       @media (max-width: 720px) {
-        .topbar { flex-direction: column; align-items: flex-start; }
+        .topbar__inner { width: var(--container); flex-direction: column; align-items: flex-start; gap: 0.65rem; }
         .nav { width: 100%; overflow-x: auto; padding-bottom: 0.2rem; }
         .hero { padding-top: 2rem; }
         .grid--three, .steps { grid-template-columns: 1fr; }
         .button, .actions a { width: 100%; }
+        .hero__content { padding: 0; }
       }
     </style>
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="#inicio">
-        <span class="brand__mark">S</span>
-        <span class="brand__text">
-          <strong>SANALAB</strong>
-          <small>Bienestar digestivo y alimentación consciente</small>
-        </span>
-      </a>
-      <nav class="nav">
-        <a href="#sobre">Sobre SANALAB</a>
-        <a href="#temas">Temas</a>
-        <a href="#ebooks">Ebooks</a>
-        <a href="#preguntas">Preguntas frecuentes</a>
-        <a href="#whatsapp">WhatsApp</a>
-      </nav>
+      <div class="topbar__inner">
+        <a class="brand" href="#inicio">
+          <img class="brand__logo" src="/img/SANALAB%20LOGO%20FONDO%20TRANPARENTE%20recortado.png" alt="SANALAB" />
+        </a>
+        <nav class="nav">
+          <a href="#sobre">Sobre SANALAB</a>
+          <a href="#temas">Temas</a>
+          <a href="#ebooks">Ebooks</a>
+          <a href="#preguntas">Preguntas frecuentes</a>
+          <a href="#whatsapp">WhatsApp</a>
+        </nav>
+      </div>
     </header>
 
     <main>
       <section class="hero" id="inicio">
-        <div>
-          <p class="eyebrow">Plataforma de bienestar integral</p>
-          <h1>Entender tu cuerpo también puede ser simple</h1>
-          <p class="hero__description">
-            SANALAB comparte contenido claro y cercano sobre microbiota, digestión, inflamación,
-            alimentación saludable y hábitos sostenibles. Nuestros ebooks reúnen esa información en
-            formatos prácticos para acompañarte en tu vida cotidiana.
-          </p>
-          <div class="actions">
-            <a class="button button--primary" href="#ebooks">Explorar ebooks</a>
-            <a class="button button--secondary" href="#sobre">Conocer SANALAB</a>
-          </div>
-          <ul class="hero__highlights">
-            <li>Digestión</li>
-            <li>Microbiota</li>
-            <li>Alimentación consciente</li>
-            <li>Hábitos sostenibles</li>
-          </ul>
+        <div class="hero__backdrop" aria-hidden="true">
+          <img class="hero__backdrop-image" src="/img/hero.png" alt="" />
         </div>
-        <aside class="hero-panel" aria-label="Resumen de SANALAB">
+
+        <div class="hero__inner">
+          <div class="hero__content">
+            <p class="eyebrow">Plataforma de bienestar integral</p>
+            <h1>Entender tu cuerpo también puede ser simple</h1>
+            <p class="hero__description">
+              SANALAB comparte contenido claro y cercano sobre microbiota, digestión, inflamación,
+              alimentación saludable y hábitos sostenibles. Nuestros ebooks reúnen esa información en
+              formatos prácticos para acompañarte en tu vida cotidiana.
+            </p>
+            <div class="actions">
+              <a class="button button--primary" href="#ebooks">Explorar ebooks</a>
+              <a class="button button--secondary" href="#sobre">Conocer SANALAB</a>
+            </div>
+            <ul class="hero__highlights">
+              <li>Digestión</li>
+              <li>Microbiota</li>
+              <li>Alimentación consciente</li>
+              <li>Hábitos sostenibles</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="hero-support" aria-label="Resumen de SANALAB">
+        <aside class="hero-panel hero-panel--support">
           <div class="hero-panel__section">
             <span class="hero-panel__label">Qué vas a encontrar</span>
             <ul class="hero-panel__list">
@@ -388,7 +496,7 @@
 
       <footer class="footer">
         <div>
-          <h2 style="font-size:1.4rem;">SANALAB</h2>
+          <h2 style="font-size:1.4rem; font-family: var(--font-display); font-weight: 600;">SANALAB</h2>
           <p>Bienestar digestivo, microbiota y alimentación consciente.</p>
         </div>
         <nav class="footer__links">
