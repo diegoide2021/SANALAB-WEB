@@ -80,7 +80,7 @@
           radial-gradient(circle at top right, rgba(95, 127, 82, 0.12), transparent 24%),
           linear-gradient(180deg, #fbf6ef 0%, var(--bg) 55%, #f4ebde 100%);
       }
-      a { color: inherit; text-decoration: none; }
+      a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
       .topbar, .hero, .section, .footer {
         width: var(--container);
         margin: 0 auto;
@@ -190,8 +190,6 @@
       }
       .button--primary { background: var(--primary); color: #fff; box-shadow: 0 14px 30px rgba(69, 99, 64, 0.22); }
       .button--secondary { border: 1px solid rgba(95, 127, 82, 0.2); background: rgba(255,255,255,0.56); color: var(--primary-deep); }
-      .hero__highlights { margin: 2rem 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 0.75rem; }
-      .hero__highlights li { padding: 0.72rem 1rem; border-radius: 999px; background: rgba(255,255,255,0.66); border: 1px solid rgba(95,127,82,0.12); color: var(--muted); }
       .hero-panel, .card, .ebook, .faq, .step, .cta {
         border: 1px solid var(--line);
         background: var(--surface);
@@ -240,17 +238,74 @@
       .benefit li::before { content: ""; position: absolute; left: 0; top: 0.72rem; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--accent); }
       .ebook__footer { display: grid; gap: 1rem; }
       .ebook__price { font-weight: 700; color: var(--primary-deep); font-family: var(--font-accent); }
+      .ebook-modal { position: fixed; inset: 0; display: none; place-items: center; padding: 1rem; z-index: 70; }
+      .ebook-modal:target { display: grid; }
+      .ebook-modal__backdrop { position: absolute; inset: 0; background: rgba(30, 40, 28, 0.56); backdrop-filter: blur(8px); }
+      .ebook-modal__panel { position: relative; z-index: 1; width: min(44rem, 100%); max-height: min(88vh, 54rem); overflow: auto; padding: 1.6rem; border-radius: 30px; background: rgba(255, 250, 244, 0.98); box-shadow: 0 30px 70px rgba(33, 45, 28, 0.24); display: grid; gap: 1.2rem; }
+      .ebook-modal__header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+      .ebook-modal__close { width: 2.2rem; height: 2.2rem; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: rgba(125, 144, 110, 0.12); color: var(--primary-deep); font-size: 1.4rem; line-height: 1; }
+      .ebook-modal__panel h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); line-height: 1.05; font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; }
+      .ebook-modal__summary { color: var(--muted); line-height: 1.75; font-family: var(--font-body); font-size: 1.02rem; }
+      .ebook-modal__list { margin: 0; padding: 0; display: grid; gap: 0.85rem; list-style: none; }
+      .ebook-modal__list li { position: relative; padding-left: 1.5rem; color: var(--muted); line-height: 1.6; font-family: var(--font-body); }
+      .ebook-modal__list li::before { content: ""; position: absolute; left: 0; top: 0.7rem; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--accent); }
+      .ebook-modal__actions { display: flex; flex-wrap: wrap; gap: 0.9rem; }
       .steps { margin-top: 2.2rem; grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .step { padding: 1.5rem; min-height: 13rem; display: grid; align-content: space-between; }
       .step__num { font-size: 2.4rem; color: var(--accent); font-weight: 700; font-family: var(--font-display); }
       .cta { padding: 2rem; display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; }
+      .testimonials-carousel__shell { position: relative; margin-top: 2.4rem; }
+      .testimonials-carousel {
+        margin-top: 2.4rem;
+        display: flex;
+        gap: 1rem;
+        overflow-x: auto;
+        padding-bottom: 0.35rem;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+      }
+      .testimonials-carousel::-webkit-scrollbar { display: none; }
+      .testimonials-carousel__shell { margin-top: 2.4rem; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1rem; }
+      .testimonials-carousel__button { width: 2.6rem; height: 2.6rem; border-radius: 999px; border: 1px solid rgba(95, 127, 82, 0.18); background: rgba(255, 250, 244, 0.95); color: var(--primary-deep); font-size: 1.5rem; line-height: 1; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(71, 85, 66, 0.08); transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease; justify-self: center; }
+      .testimonials-carousel__button:hover { transform: translateY(-1px); background: #f4efe6; color: #7d906e; }
+      .testimonial-card {
+        scroll-snap-align: start;
+        flex: 0 0 calc((100% - 2rem) / 3);
+        padding: 1.5rem;
+        border-radius: var(--radius-lg);
+        border: 1px solid rgba(95, 127, 82, 0.12);
+        background: rgba(255, 250, 244, 0.9);
+        box-shadow: var(--shadow);
+        display: grid;
+        gap: 1.35rem;
+        min-height: 13rem;
+      }
+      .testimonial-card__quote {
+        font-size: 1.05rem;
+        line-height: 1.75;
+        color: var(--ink-soft);
+        font-family: var(--font-body);
+      }
+      .testimonial-card__footer { display: grid; gap: 0.2rem; }
+      .testimonial-card__footer strong { font-family: var(--font-accent); color: var(--primary-deep); }
+      .testimonial-card__footer span { color: var(--ink-soft); font-size: 0.95rem; }
       .faq-wrap { max-width: 52rem; margin: 2.4rem auto 0; display: grid; gap: 1rem; }
       .faq { padding: 1.25rem 1.35rem; }
       .faq summary { cursor: pointer; list-style: none; font-weight: 700; display: flex; justify-content: space-between; gap: 1rem; font-family: var(--font-accent); }
       .faq summary::-webkit-details-marker { display: none; }
       .faq p { margin-top: 0.9rem; }
-      .footer { padding: 2.25rem 0 3rem; display: grid; gap: 1rem; }
-      .footer__links { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; color: var(--muted); font-family: var(--font-accent); }
+      .footer { padding: 2.25rem 0 3rem; display: grid; gap: 0.65rem; justify-items: center; text-align: center; }
+      .footer__brand { display: grid; gap: 0; justify-items: center; margin-bottom: 0.35rem; }
+      .footer__links { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; justify-content: center; align-items: center; margin-top: 0.65rem; color: var(--muted); font-family: var(--font-accent); }
+      .footer__logo { display: block; width: min(16rem, 70vw); height: auto; object-fit: contain; margin: 0 0 -0.2rem; }
+      .footer__brand .footer__brand-line { white-space: nowrap; font-size: 1.1rem; font-family: var(--font-display); font-weight: 600; margin: 0; color: #7d906e; }
+      .topbar__nav a:hover, .footer__links a:hover { color: #7d906e; }
+      .footer__policies { display: flex; flex-wrap: nowrap; gap: 1rem 1.35rem; justify-content: center; align-items: center; margin-top: 0.4rem; overflow-x: auto; width: 100%; padding-bottom: 0.1rem; }
+      .footer__policy { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.98rem; font-family: var(--font-accent); color: var(--muted); text-transform: lowercase; white-space: nowrap; }
+      .footer__policy:hover { color: #7d906e; }
+      .footer__policy input { width: 0.95rem; height: 0.95rem; accent-color: #7d906e; margin: 0; }
+      .footer__legal { max-width: 56rem; text-align: center; margin-top: 1.35rem; font-size: 0.92rem; }
       @media (max-width: 1024px) {
         .hero, .grid--two, .cta { grid-template-columns: 1fr; display: grid; }
         .grid--three { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -268,6 +323,12 @@
         .grid--three, .steps { grid-template-columns: 1fr; }
         .button, .actions a { width: 100%; }
         .hero__content { padding: 0; }
+        .testimonials-carousel { flex: 0 0 auto; }
+        .testimonials-carousel__shell { gap: 0.75rem; }
+        .testimonials-carousel__button { width: 2.8rem; height: 2.8rem; }
+        .ebook-modal { padding: 0.75rem; }
+        .ebook-modal__panel { padding: 1.25rem; border-radius: 24px; }
+        .ebook-modal__actions .button { width: 100%; }
       }
     </style>
   </head>
@@ -277,13 +338,13 @@
         <a class="brand" href="#inicio">
           <img class="brand__logo" src="/img/SANALAB%20LOGO%20FONDO%20TRANPARENTE%20recortado.png" alt="SANALAB" />
         </a>
-        <nav class="nav">
-          <a href="#sobre">Sobre SANALAB</a>
-          <a href="#temas">Temas</a>
-          <a href="#ebooks">Ebooks</a>
-          <a href="#preguntas">Preguntas frecuentes</a>
-          <a href="#whatsapp">WhatsApp</a>
-        </nav>
+      <nav class="nav">
+        <a href="#sobre">Sobre SANALAB</a>
+        <a href="#temas">Temas</a>
+        <a href="#ebooks">Ebooks</a>
+        <a href="#preguntas">Preguntas frecuentes</a>
+        <a href="#whatsapp">WhatsApp</a>
+      </nav>
       </div>
     </header>
 
@@ -296,22 +357,16 @@
         <div class="hero__inner">
           <div class="hero__content">
             <p class="eyebrow">Plataforma de bienestar integral</p>
-            <h1>Entender tu cuerpo también puede ser simple</h1>
+            <h1>Entender tu cuerpo tambiÃƒÆ’Ã‚Â©n puede ser simple</h1>
             <p class="hero__description">
-              SANALAB comparte contenido claro y cercano sobre microbiota, digestión, inflamación,
-              alimentación saludable y hábitos sostenibles. Nuestros ebooks reúnen esa información en
-              formatos prácticos para acompañarte en tu vida cotidiana.
+              SANALAB comparte contenido claro y cercano sobre microbiota, digestiÃƒÆ’Ã‚Â³n, inflamaciÃƒÆ’Ã‚Â³n,
+              alimentaciÃƒÆ’Ã‚Â³n saludable y hÃƒÆ’Ã‚Â¡bitos sostenibles. Nuestras herramientas digitales reÃƒÆ’Ã‚Âºnen esa
+              informaciÃƒÆ’Ã‚Â³n en formatos prÃƒÆ’Ã‚Â¡cticos para acompaÃƒÆ’Ã‚Â±arte en tu vida cotidiana.
             </p>
             <div class="actions">
               <a class="button button--primary" href="#ebooks">Explorar ebooks</a>
               <a class="button button--secondary" href="#sobre">Conocer SANALAB</a>
             </div>
-            <ul class="hero__highlights">
-              <li>Digestión</li>
-              <li>Microbiota</li>
-              <li>Alimentación consciente</li>
-              <li>Hábitos sostenibles</li>
-            </ul>
           </div>
         </div>
       </section>
@@ -319,11 +374,11 @@
       <section class="hero-support" aria-label="Resumen de SANALAB">
         <aside class="hero-panel hero-panel--support">
           <div class="hero-panel__section">
-            <span class="hero-panel__label">Qué vas a encontrar</span>
+            <span class="hero-panel__label">QuÃƒÆ’Ã‚Â© vas a encontrar</span>
             <ul class="hero-panel__list">
-              <li>Guías simples basadas en ciencia.</li>
+              <li>GuÃƒÆ’Ã‚Â­as simples basadas en ciencia.</li>
               <li>Herramientas para aplicar sin extremos.</li>
-              <li>Recursos para elegir con más claridad.</li>
+              <li>Recursos para elegir con mÃƒÆ’Ã‚Â¡s claridad.</li>
             </ul>
           </div>
           <div class="hero-panel__section hero-panel__section--accent">
@@ -333,7 +388,7 @@
               <div class="hero-panel__book hero-panel__book--two"></div>
               <div class="hero-panel__book hero-panel__book--three"></div>
             </div>
-            <p>Ebooks sobre inflamación, orden digestivo y desayunos antiinflamatorios.</p>
+            <p>Ebooks sobre inflamaciÃƒÆ’Ã‚Â³n, orden digestivo y desayunos antiinflamatorios.</p>
           </div>
         </aside>
       </section>
@@ -341,56 +396,77 @@
       <section class="section section--soft" id="sobre">
         <div class="grid grid--two">
           <article class="card">
-            <p class="eyebrow">Qué es SANALAB</p>
-            <h2>Una web sencilla para aprender, orientarte y encontrar recursos útiles</h2>
+            <p class="eyebrow">QuÃƒÆ’Ã‚Â© es SANALAB</p>
+            <h2>Una web sencilla para aprender, orientarte y encontrar recursos ÃƒÆ’Ã‚Âºtiles</h2>
             <p class="copy" style="margin-top:1rem;">
-              SanaLab es una plataforma de bienestar integral enfocada en alimentación, microbiota,
-              digestión y hábitos saludables. Creamos contenido simple, accesible y práctico para
-              ayudarte a tomar mejores decisiones sobre tu cuerpo, sin soluciones mágicas ni
+              SanaLab es una plataforma de bienestar integral enfocada en alimentaciÃƒÆ’Ã‚Â³n, microbiota,
+              digestiÃƒÆ’Ã‚Â³n y hÃƒÆ’Ã‚Â¡bitos saludables. Creamos contenido simple, accesible y prÃƒÆ’Ã‚Â¡ctico para
+              ayudarte a tomar mejores decisiones sobre tu cuerpo, sin soluciones mÃƒÆ’Ã‚Â¡gicas ni
               promesas extremas.
             </p>
             <p class="copy" style="margin-top:1rem;">
-              Muchas personas viven con inflamación, digestiones pesadas, cansancio o falta de
-              claridad sobre qué comer. El problema no siempre es la falta de voluntad, sino la
-              falta de información simple, ordenada y aplicable.
+              Muchas personas viven con inflamaciÃƒÆ’Ã‚Â³n, digestiones pesadas, cansancio o falta de
+              claridad sobre quÃƒÆ’Ã‚Â© comer. El problema no siempre es la falta de voluntad, sino la
+              falta de informaciÃƒÆ’Ã‚Â³n simple, ordenada y aplicable.
             </p>
           </article>
           <article class="card card--accent">
-            <p class="eyebrow">Cómo trabajamos</p>
-            <h2>Una mirada cálida, clara y sostenible</h2>
+            <p class="eyebrow">CÃƒÆ’Ã‚Â³mo trabajamos</p>
+            <h2>Una mirada cÃƒÆ’Ã‚Â¡lida, clara y sostenible</h2>
             <ul class="benefit">
               <li>Basado en ciencia, explicado de forma simple.</li>
-              <li>Enfoque humano, sin soluciones mágicas ni promesas extremas.</li>
-              <li>Hábitos sostenibles para una vida real, no idealizada.</li>
+              <li>Enfoque humano, sin soluciones mÃƒÆ’Ã‚Â¡gicas ni promesas extremas.</li>
+              <li>HÃƒÆ’Ã‚Â¡bitos sostenibles para una vida real, no idealizada.</li>
             </ul>
           </article>
         </div>
       </section>
 
+      <section class="section section--soft" id="app">
+        <article class="card card--accent">
+          <p class="eyebrow">PrÃƒÂ¯Ã‚Â¿Ã‚Â½ximamente</p>
+          <h2>App SANALAB, un espacio para acompaÃƒÂ¯Ã‚Â¿Ã‚Â½arte en tu bienestar digestivo</h2>
+          <p class="copy" style="margin-top:1rem;">
+            La App SANALAB serÃƒÂ¯Ã‚Â¿Ã‚Â½ un espacio pensado para acompaÃƒÂ¯Ã‚Â¿Ã‚Â½arte dÃƒÂ¯Ã‚Â¿Ã‚Â½a a dÃƒÂ¯Ã‚Â¿Ã‚Â½a con consejos simples,
+            guÃƒÂ¯Ã‚Â¿Ã‚Â½as prÃƒÂ¯Ã‚Â¿Ã‚Â½cticas y recursos claros para mejorar tu bienestar digestivo y sostener hÃƒÂ¯Ã‚Â¿Ã‚Â½bitos
+            saludables sin extremos.
+          </p>
+          <p class="copy" style="margin-top:1rem;">
+            Vas a poder encontrar sugerencias para tu rutina, contenido breve para entender mejor tu
+            cuerpo y herramientas ÃƒÂ¯Ã‚Â¿Ã‚Â½tiles para llevar a la prÃƒÂ¯Ã‚Â¿Ã‚Â½ctica en tu vida diaria.
+          </p>
+          <ul class="benefit">
+            <li>Consejos diarios para tu digestiÃƒÂ¯Ã‚Â¿Ã‚Â½n y alimentaciÃƒÂ¯Ã‚Â¿Ã‚Â½n consciente.</li>
+            <li>GuÃƒÂ¯Ã‚Â¿Ã‚Â½as simples para organizar hÃƒÂ¯Ã‚Â¿Ã‚Â½bitos saludables.</li>
+            <li>Recordatorios y contenido breve para acompaÃƒÂ¯Ã‚Â¿Ã‚Â½arte sin saturarte.</li>
+            <li>Recursos prÃƒÂ¯Ã‚Â¿Ã‚Â½cticos para volver a tu centro cuando lo necesites.</li>
+          </ul>
+        </article>
+      </section>
       <section class="section" id="temas">
-        <div style="max-width:44rem; margin:0 auto; text-align:center;">
+        <div style="max-width:58rem; margin:0 auto; text-align:center;">
           <p class="eyebrow" style="justify-content:center;">Temas centrales</p>
           <h2>Bienestar digestivo explicado con un lenguaje accesible</h2>
           <p class="copy" style="margin-top:1rem;">
-            La idea no es sumar más ruido, sino ordenar mejor la información para que puedas usarla
-            en tu día a día.
+            La idea no es sumar mÃƒÆ’Ã‚Â¡s ruido, sino ordenar mejor la informaciÃƒÆ’Ã‚Â³n para que puedas usarla
+            en tu dÃƒÆ’Ã‚Â­a a dÃƒÆ’Ã‚Â­a.
           </p>
         </div>
         <div class="grid grid--two topics">
-          <article class="topic"><h3>Digestión y bienestar diario</h3><p>Información clara para entender señales como pesadez, inflamación, incomodidad o desorden digestivo.</p></article>
-          <article class="topic"><h3>Microbiota y alimentación</h3><p>Contenido accesible para conectar ciencia, alimentación real y decisiones cotidianas más conscientes.</p></article>
-          <article class="topic"><h3>Energía y hábitos sostenibles</h3><p>Herramientas para construir rutinas posibles, sin extremos ni reglas difíciles de sostener.</p></article>
-          <article class="topic"><h3>Recursos simples para aplicar</h3><p>Ebooks pensados para bajar ideas complejas a pasos concretos, prácticos y fáciles de revisar.</p></article>
+          <article class="topic"><h3>DigestiÃƒÆ’Ã‚Â³n y bienestar diario</h3><p>InformaciÃƒÆ’Ã‚Â³n clara para entender seÃƒÆ’Ã‚Â±ales como pesadez, inflamaciÃƒÆ’Ã‚Â³n, incomodidad o desorden digestivo.</p></article>
+          <article class="topic"><h3>Microbiota y alimentaciÃƒÆ’Ã‚Â³n</h3><p>Contenido accesible para conectar ciencia, alimentaciÃƒÆ’Ã‚Â³n real y decisiones cotidianas mÃƒÆ’Ã‚Â¡s conscientes.</p></article>
+          <article class="topic"><h3>EnergÃƒÆ’Ã‚Â­a y hÃƒÆ’Ã‚Â¡bitos sostenibles</h3><p>Herramientas para construir rutinas posibles, sin extremos ni reglas difÃƒÆ’Ã‚Â­ciles de sostener.</p></article>
+          <article class="topic"><h3>Recursos simples para aplicar</h3><p>Ebooks pensados para bajar ideas complejas a pasos concretos, prÃƒÆ’Ã‚Â¡cticos y fÃƒÆ’Ã‚Â¡ciles de revisar.</p></article>
         </div>
       </section>
 
       <section class="section" id="ebooks">
-        <div style="max-width:44rem; margin:0 auto; text-align:center;">
+        <div style="max-width:58rem; margin:0 auto; text-align:center;">
           <p class="eyebrow" style="justify-content:center;">Ebooks</p>
           <h2>Recursos digitales para leer con calma y aplicar a tu ritmo</h2>
           <p class="copy" style="margin-top:1rem;">
             Los ebooks forman parte del ecosistema de SANALAB: informan, orientan y ofrecen ideas
-            concretas para empezar por donde hoy te haga más sentido.
+            concretas para empezar por donde hoy te haga mÃƒÆ’Ã‚Â¡s sentido.
           </p>
         </div>
         <div class="grid grid--three" style="margin-top:2.4rem;">
@@ -398,74 +474,137 @@
             <div class="ebook__cover"><span>Sanalab</span><strong>Vivir Inflamado NO es Normal</strong></div>
             <div class="ebook__body">
               <h3 class="ebook__title">Vivir Inflamado NO es Normal</h3>
-              <p>Una guía para entender la inflamación cotidiana, su relación con la alimentación, el intestino y los hábitos diarios.</p>
+              <p>Una guÃƒÆ’Ã‚Â­a para entender la inflamaciÃƒÆ’Ã‚Â³n cotidiana, su relaciÃƒÆ’Ã‚Â³n con la alimentaciÃƒÆ’Ã‚Â³n, el intestino y los hÃƒÆ’Ã‚Â¡bitos diarios.</p>
               <ul class="benefit">
-                <li>Comprendé señales de inflamación frecuentes.</li>
-                <li>Relacioná síntomas con hábitos diarios.</li>
-                <li>Empezá a ordenar tu alimentación con más criterio.</li>
+                <li>ComprendÃƒÆ’Ã‚Â© seÃƒÆ’Ã‚Â±ales de inflamaciÃƒÆ’Ã‚Â³n frecuentes.</li>
+                <li>RelacionÃƒÆ’Ã‚Â¡ sÃƒÆ’Ã‚Â­ntomas con hÃƒÆ’Ã‚Â¡bitos diarios.</li>
+                <li>EmpezÃƒÆ’Ã‚Â¡ a ordenar tu alimentaciÃƒÆ’Ã‚Â³n con mÃƒÆ’Ã‚Â¡s criterio.</li>
               </ul>
-              <div class="ebook__footer"><strong class="ebook__price">Disponible próximamente</strong><a class="button button--primary" href="#">Ver ebook</a><a class="button button--secondary" href="https://wa.me/TUNUMERO">Consultar por WhatsApp</a></div>
+              <div class="ebook__footer"><strong class="ebook__price">Disponible prÃƒÆ’Ã‚Â³ximamente</strong><a class="button button--primary" href="#vivir-inflamado">Ver ebook</a><a class="button button--secondary" href="https://wa.me/TUNUMERO">Consultar por WhatsApp</a></div>
             </div>
           </article>
           <article class="ebook">
             <div class="ebook__cover"><span>Sanalab</span><strong>Reset Intestinal</strong></div>
             <div class="ebook__body">
               <h3 class="ebook__title">Reset Intestinal</h3>
-              <p>Un ebook práctico para ordenar tu alimentación, aliviar la sobrecarga digestiva y reconectar con señales básicas del cuerpo.</p>
+              <p>Un ebook prÃƒÆ’Ã‚Â¡ctico para ordenar tu alimentaciÃƒÆ’Ã‚Â³n, aliviar la sobrecarga digestiva y reconectar con seÃƒÆ’Ã‚Â±ales bÃƒÆ’Ã‚Â¡sicas del cuerpo.</p>
               <ul class="benefit">
-                <li>Bajá la sensación de pesadez digestiva.</li>
-                <li>Recuperá una rutina más clara y simple.</li>
-                <li>Reconectá con señales básicas del cuerpo.</li>
+                <li>BajÃƒÆ’Ã‚Â¡ la sensaciÃƒÆ’Ã‚Â³n de pesadez digestiva.</li>
+                <li>RecuperÃƒÆ’Ã‚Â¡ una rutina mÃƒÆ’Ã‚Â¡s clara y simple.</li>
+                <li>ReconectÃƒÆ’Ã‚Â¡ con seÃƒÆ’Ã‚Â±ales bÃƒÆ’Ã‚Â¡sicas del cuerpo.</li>
               </ul>
-              <div class="ebook__footer"><strong class="ebook__price">Disponible próximamente</strong><a class="button button--primary" href="#">Ver ebook</a><a class="button button--secondary" href="https://wa.me/TUNUMERO">Consultar por WhatsApp</a></div>
+              <div class="ebook__footer"><strong class="ebook__price">Disponible prÃƒÆ’Ã‚Â³ximamente</strong><a class="button button--primary" href="#reset-intestinal">Ver ebook</a><a class="button button--secondary" href="https://wa.me/TUNUMERO">Consultar por WhatsApp</a></div>
             </div>
           </article>
           <article class="ebook">
             <div class="ebook__cover"><span>Sanalab</span><strong>100 Desayunos Antiinflamatorios</strong></div>
             <div class="ebook__body">
               <h3 class="ebook__title">100 Desayunos Antiinflamatorios</h3>
-              <p>Ideas simples, nutritivas y fáciles de aplicar para empezar el día con más energía y mejor digestión.</p>
+              <p>Ideas simples, nutritivas y fÃƒÆ’Ã‚Â¡ciles de aplicar para empezar el dÃƒÆ’Ã‚Â­a con mÃƒÆ’Ã‚Â¡s energÃƒÆ’Ã‚Â­a y mejor digestiÃƒÆ’Ã‚Â³n.</p>
               <ul class="benefit">
-                <li>Resolvé desayunos con opciones concretas.</li>
-                <li>Sumá variedad sin complicarte.</li>
-                <li>Empezá el día con más energía y saciedad.</li>
+                <li>ResolvÃƒÆ’Ã‚Â© desayunos con opciones concretas.</li>
+                <li>SumÃƒÆ’Ã‚Â¡ variedad sin complicarte.</li>
+                <li>EmpezÃƒÆ’Ã‚Â¡ el dÃƒÆ’Ã‚Â­a con mÃƒÆ’Ã‚Â¡s energÃƒÆ’Ã‚Â­a y saciedad.</li>
               </ul>
-              <div class="ebook__footer"><strong class="ebook__price">Disponible próximamente</strong><a class="button button--primary" href="#">Ver ebook</a><a class="button button--secondary" href="https://wa.me/TUNUMERO">Consultar por WhatsApp</a></div>
+              <div class="ebook__footer"><strong class="ebook__price">Disponible prÃƒÆ’Ã‚Â³ximamente</strong><a class="button button--primary" href="#desayunos-antiinflamatorios">Ver ebook</a><a class="button button--secondary" href="https://wa.me/TUNUMERO">Consultar por WhatsApp</a></div>
             </div>
           </article>
+        </div>
+      </section>
+
+      <section class="ebook-modal" id="vivir-inflamado" aria-label="Detalle de Vivir Inflamado NO es Normal">
+        <a class="ebook-modal__backdrop" href="#ebooks" aria-label="Cerrar detalle"></a>
+        <div class="ebook-modal__panel">
+          <div class="ebook-modal__header">
+            <p class="eyebrow">Vista del ebook</p>
+            <a class="ebook-modal__close" href="#ebooks" aria-label="Cerrar">×</a>
+          </div>
+          <h2>Vivir Inflamado NO es Normal</h2>
+          <p class="ebook-modal__summary">Este ebook te ayuda a mirar la inflamación cotidiana con más claridad, para identificar qué puede estar influyendo en tu digestión y en tu bienestar general sin caer en extremos.</p>
+          <ul class="ebook-modal__list">
+            <li>Ideal para reconocer patrones que se repiten en tu rutina.</li>
+            <li>Explica la relación entre alimentación, intestino y malestar habitual.</li>
+            <li>Aporta una base simple para empezar a tomar decisiones más conscientes.</li>
+          </ul>
+          <div class="ebook-modal__actions">
+            <a class="button button--primary" href="https://wa.me/TUNUMERO">Comprar</a>
+            <a class="button button--secondary" href="#ebooks">Volver a ebooks</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="ebook-modal" id="reset-intestinal" aria-label="Detalle de Reset Intestinal">
+        <a class="ebook-modal__backdrop" href="#ebooks" aria-label="Cerrar detalle"></a>
+        <div class="ebook-modal__panel">
+          <div class="ebook-modal__header">
+            <p class="eyebrow">Vista del ebook</p>
+            <a class="ebook-modal__close" href="#ebooks" aria-label="Cerrar">×</a>
+          </div>
+          <h2>Reset Intestinal</h2>
+          <p class="ebook-modal__summary">Pensado como una guía de reorganización, este ebook propone una mirada práctica para bajar la sobrecarga digestiva y volver a una base más simple y sostenible.</p>
+          <ul class="ebook-modal__list">
+            <li>Te acompaña a ordenar comidas y hábitos con una lógica más amable.</li>
+            <li>Sirve para momentos en los que sentís el cuerpo saturado o confuso.</li>
+            <li>Buscá más claridad, no perfección: ese es el espíritu del material.</li>
+          </ul>
+          <div class="ebook-modal__actions">
+            <a class="button button--primary" href="https://wa.me/TUNUMERO">Comprar</a>
+            <a class="button button--secondary" href="#ebooks">Volver a ebooks</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="ebook-modal" id="desayunos-antiinflamatorios" aria-label="Detalle de 100 Desayunos Antiinflamatorios">
+        <a class="ebook-modal__backdrop" href="#ebooks" aria-label="Cerrar detalle"></a>
+        <div class="ebook-modal__panel">
+          <div class="ebook-modal__header">
+            <p class="eyebrow">Vista del ebook</p>
+            <a class="ebook-modal__close" href="#ebooks" aria-label="Cerrar">×</a>
+          </div>
+          <h2>100 Desayunos Antiinflamatorios</h2>
+          <p class="ebook-modal__summary">Un ebook lleno de ideas para resolver tus mañanas con comidas más estables, prácticas y fáciles de sostener, sin tener que improvisar todos los días.</p>
+          <ul class="ebook-modal__list">
+            <li>Reúne propuestas concretas para simplificar tus desayunos.</li>
+            <li>Ayuda a empezar el día con opciones más ordenadas y nutritivas.</li>
+            <li>Es una buena guía si querés sumar variedad sin complicarte.</li>
+          </ul>
+          <div class="ebook-modal__actions">
+            <a class="button button--primary" href="https://wa.me/TUNUMERO">Comprar</a>
+            <a class="button button--secondary" href="#ebooks">Volver a ebooks</a>
+          </div>
         </div>
       </section>
 
       <section class="section section--contrast">
         <div class="grid grid--two">
           <div>
-            <p class="eyebrow">Para qué sirven</p>
-            <h2>Una ayuda concreta para sumar comprensión y ordenar hábitos</h2>
+            <p class="eyebrow">Para quÃƒÆ’Ã‚Â© sirven</p>
+            <h2>Una ayuda concreta para sumar comprensiÃƒÆ’Ã‚Â³n y ordenar hÃƒÆ’Ã‚Â¡bitos</h2>
             <p class="copy" style="margin-top:1rem;">
-              No buscan reemplazar procesos profesionales, sino acompañarte con información clara y
+              No buscan reemplazar procesos profesionales, sino acompaÃƒÆ’Ã‚Â±arte con informaciÃƒÆ’Ã‚Â³n clara y
               herramientas realistas.
             </p>
           </div>
           <ul class="benefit">
-            <li>Comprender mejor tu digestión.</li>
-            <li>Identificar hábitos que pueden afectar tu bienestar.</li>
-            <li>Aprender a comer de forma más consciente y sostenible.</li>
-            <li>Tener ideas prácticas para aplicar en tu rutina.</li>
-            <li>Mejorar tu relación con la alimentación sin extremos.</li>
+            <li>Comprender mejor tu digestiÃƒÆ’Ã‚Â³n.</li>
+            <li>Identificar hÃƒÆ’Ã‚Â¡bitos que pueden afectar tu bienestar.</li>
+            <li>Aprender a comer de forma mÃƒÆ’Ã‚Â¡s consciente y sostenible.</li>
+            <li>Tener ideas prÃƒÆ’Ã‚Â¡cticas para aplicar en tu rutina.</li>
+            <li>Mejorar tu relaciÃƒÆ’Ã‚Â³n con la alimentaciÃƒÆ’Ã‚Â³n sin extremos.</li>
           </ul>
         </div>
       </section>
 
       <section class="section">
-        <div style="max-width:44rem; margin:0 auto; text-align:center;">
-          <p class="eyebrow" style="justify-content:center;">Cómo funciona</p>
+        <div style="max-width:58rem; margin:0 auto; text-align:center;">
+          <p class="eyebrow" style="justify-content:center;">CÃƒÆ’Ã‚Â³mo funciona</p>
           <h2>Una experiencia simple y directa</h2>
         </div>
         <div class="grid steps">
-          <article class="step"><strong class="step__num">01</strong><p>Elegís el ebook que mejor acompaña tu momento.</p></article>
-          <article class="step"><strong class="step__num">02</strong><p>Realizás el pago de forma segura.</p></article>
-          <article class="step"><strong class="step__num">03</strong><p>Recibís el material en tu email o por WhatsApp.</p></article>
-          <article class="step"><strong class="step__num">04</strong><p>Podés escribirnos si necesitás ayuda para elegir o empezar.</p></article>
+          <article class="step"><strong class="step__num">01</strong><p>ElegÃƒÆ’Ã‚Â­s el ebook que mejor acompaÃƒÆ’Ã‚Â±a tu momento.</p></article>
+          <article class="step"><strong class="step__num">02</strong><p>RealizÃƒÆ’Ã‚Â¡s el pago de forma segura.</p></article>
+          <article class="step"><strong class="step__num">03</strong><p>RecibÃƒÆ’Ã‚Â­s el material en tu email o por WhatsApp.</p></article>
+          <article class="step"><strong class="step__num">04</strong><p>PodÃƒÆ’Ã‚Â©s escribirnos si necesitÃƒÆ’Ã‚Â¡s ayuda para elegir o empezar.</p></article>
         </div>
       </section>
 
@@ -473,32 +612,67 @@
         <div class="cta">
           <div>
             <p class="eyebrow">Consultas</p>
-            <h2>¿Tenés dudas antes de elegir?</h2>
-            <p class="copy" style="margin-top:0.75rem;">Escribinos por WhatsApp y te ayudamos a encontrar el ebook más adecuado para tu momento.</p>
+            <h2>Ãƒâ€šÃ‚Â¿TenÃƒÆ’Ã‚Â©s dudas antes de elegir?</h2>
+            <p class="copy" style="margin-top:0.75rem;">Escribinos por WhatsApp y te ayudamos a encontrar el ebook mÃƒÆ’Ã‚Â¡s adecuado para tu momento.</p>
           </div>
           <a class="button button--primary" href="https://wa.me/TUNUMERO">Hablar por WhatsApp</a>
         </div>
       </section>
+      <section class="section" id="testimonios">
+        <div style="max-width:58rem; margin:0 auto; text-align:center;">
+          <p class="eyebrow" style="justify-content:center;">Testimonios de clientes</p>
+          <h2>Experiencias reales de personas que encontraron recursos Ãºtiles en SANALAB</h2>
+          <p class="copy" style="margin-top:1rem;">
+            Un vistazo breve a cÃ³mo estos contenidos ayudan a ordenar ideas, sumar claridad y acompaÃ±ar el bienestar cotidiano.
+          </p>
+        </div>
+        <div class="testimonials-carousel__shell">
+          <div class="testimonials-carousel__controls" aria-label="Navegar testimonios">
+            <button class="testimonials-carousel__button" type="button" id="testimonialPrev" aria-label="Testimonio anterior">‹</button>
+            <button class="testimonials-carousel__button" type="button" id="testimonialNext" aria-label="Testimonio siguiente">›</button>
+          </div>
+          <div class="testimonials-carousel" aria-label="Carrusel de testimonios">
+            <article class="testimonial-card">
+              <p class="testimonial-card__quote">â€œMe ayudÃ³ a entender mejor por quÃ© me sentÃ­a tan hinchada y a ordenar mis desayunos sin hacer cambios extremos.â€</p>
+              <div class="testimonial-card__footer"><strong>Marina R.</strong><span>Lectora de SANALAB</span></div>
+            </article>
+            <article class="testimonial-card">
+              <p class="testimonial-card__quote">â€œLo que mÃ¡s valoro es que explica las cosas simple. No siento que me estÃ©n vendiendo una soluciÃ³n mÃ¡gica.â€</p>
+              <div class="testimonial-card__footer"><strong>LucÃ­a G.</strong><span>Usuario habitual</span></div>
+            </article>
+            <article class="testimonial-card">
+              <p class="testimonial-card__quote">â€œLos ebooks me dieron ideas concretas para aplicar en mi rutina y volver a comer con mÃ¡s conciencia.â€</p>
+              <div class="testimonial-card__footer"><strong>SofÃ­a M.</strong><span>Consultora de la comunidad</span></div>
+            </article>
+            <article class="testimonial-card">
+              <p class="testimonial-card__quote">â€œEs un contenido muy amable y claro. Me ayudÃ³ a relacionarme distinto con mi digestiÃ³n y mis hÃ¡bitos.â€</p>
+              <div class="testimonial-card__footer"><strong>Camila P.</strong><span>Seguidora de la marca</span></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
 
       <section class="section" id="preguntas">
-        <div style="max-width:44rem; margin:0 auto; text-align:center;">
+        <div style="max-width:58rem; margin:0 auto; text-align:center;">
           <p class="eyebrow" style="justify-content:center;">Preguntas frecuentes</p>
-          <h2>Información importante antes de comprar</h2>
+          <h2>InformaciÃƒÆ’Ã‚Â³n importante antes de comprar</h2>
         </div>
         <div class="faq-wrap">
-          <details class="faq"><summary>¿Los ebooks son dietas?</summary><p>Los ebooks no son dietas estrictas, sino guías educativas y prácticas.</p></details>
-          <details class="faq"><summary>¿Necesito conocimientos previos?</summary><p>No hace falta conocimiento previo.</p></details>
-          <details class="faq"><summary>¿Cómo recibo el ebook?</summary><p>Después del pago, el usuario recibirá el ebook por email o WhatsApp.</p></details>
-          <details class="faq"><summary>¿Puedo consultar antes de comprar?</summary><p>Sí, puede consultar antes de comprar.</p></details>
-          <details class="faq"><summary>¿Esto reemplaza una consulta médica?</summary><p>El contenido es educativo y no reemplaza diagnóstico ni tratamiento médico profesional.</p></details>
+          <details class="faq"><summary>Ãƒâ€šÃ‚Â¿Los ebooks son dietas?</summary><p>Los ebooks no son dietas estrictas, sino guÃƒÆ’Ã‚Â­as educativas y prÃƒÆ’Ã‚Â¡cticas.</p></details>
+          <details class="faq"><summary>Ãƒâ€šÃ‚Â¿Necesito conocimientos previos?</summary><p>No hace falta conocimiento previo.</p></details>
+          <details class="faq"><summary>Ãƒâ€šÃ‚Â¿CÃƒÆ’Ã‚Â³mo recibo el ebook?</summary><p>DespuÃƒÆ’Ã‚Â©s del pago, el usuario recibirÃƒÆ’Ã‚Â¡ el ebook por email o WhatsApp.</p></details>
+          <details class="faq"><summary>Ãƒâ€šÃ‚Â¿Puedo consultar antes de comprar?</summary><p>SÃƒÆ’Ã‚Â­, puede consultar antes de comprar.</p></details>
+          <details class="faq"><summary>Ãƒâ€šÃ‚Â¿Esto reemplaza una consulta mÃƒÆ’Ã‚Â©dica?</summary><p>El contenido es educativo y no reemplaza diagnÃƒÆ’Ã‚Â³stico ni tratamiento mÃƒÆ’Ã‚Â©dico profesional.</p></details>
         </div>
       </section>
 
       <footer class="footer">
-        <div>
-          <h2 style="font-size:1.4rem; font-family: var(--font-display); font-weight: 600;">SANALAB</h2>
-          <p>Bienestar digestivo, microbiota y alimentación consciente.</p>
+        <div class="footer__brand">
+          <img class="footer__logo" src="/img/SANALAB%20LOGO%20TRANSPARENTE%20recortado%202.png" alt="SANALAB" />
+          <p class="footer__brand-line">Bienestar digestivo, microbiota y alimentacion consciente.</p>
         </div>
+        <hr class="footer__divider" />
         <nav class="footer__links">
           <a href="#inicio">Inicio</a>
           <a href="#sobre">Sobre SANALAB</a>
@@ -507,7 +681,42 @@
           <a href="https://wa.me/TUNUMERO">WhatsApp</a>
         </nav>
         <p>El contenido de SANALAB es educativo y no reemplaza la consulta con un profesional de la salud.</p>
+        <div class="footer__policies" aria-label="Políticas legales">
+          <a class="footer__policy" href="#politica-de-privacidad">
+            <input type="checkbox" />
+            <span>política de privacidad</span>
+          </a>
+          <a class="footer__policy" href="#terminos-y-condiciones">
+            <input type="checkbox" />
+            <span>términos y condiciones</span>
+          </a>
+          <a class="footer__policy" href="#eliminacion-de-datos">
+            <input type="checkbox" />
+            <span>eliminación de datos</span>
+          </a>
+        </div>
       </footer>
     </main>
+    <script>
+      (() => {
+        const carousel = document.querySelector('.testimonials-carousel');
+        const prevButton = document.getElementById('testimonialPrev');
+        const nextButton = document.getElementById('testimonialNext');
+        if (!carousel || !prevButton || !nextButton) return;
+
+        const cards = Array.from(carousel.querySelectorAll('.testimonial-card'));
+        if (cards.length < 2) return;
+
+        let currentIndex = 0;
+
+        const goToIndex = (index) => {
+          currentIndex = (index + cards.length) % cards.length;
+          cards[currentIndex].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+        };
+
+        prevButton.addEventListener('click', () => goToIndex(currentIndex - 1));
+        nextButton.addEventListener('click', () => goToIndex(currentIndex + 1));
+      })();
+    </script>
   </body>
 </html>

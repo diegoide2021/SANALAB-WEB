@@ -1,4 +1,5 @@
 import { EbookCard } from "@/components/ebook-card";
+import { TestimonialsCarousel } from "@/components/testimonials-carousel";
 import { SectionHeading } from "@/components/section-heading";
 
 const whatsappHref = "https://wa.me/TUNUMERO";
@@ -34,6 +35,7 @@ const values = [
 
 const ebooks = [
   {
+    slug: "vivir-inflamado",
     title: "Vivir Inflamado NO es Normal",
     description:
       "Una guía para entender la inflamación cotidiana, su relación con la alimentación, el intestino y los hábitos diarios.",
@@ -42,8 +44,16 @@ const ebooks = [
       "Relacioná síntomas con hábitos diarios.",
       "Empezá a ordenar tu alimentación con más criterio.",
     ],
+    modalSummary:
+      "Este ebook te ayuda a mirar la inflamación cotidiana con más claridad, para identificar qué puede estar influyendo en tu digestión y en tu bienestar general sin caer en extremos.",
+    modalHighlights: [
+      "Ideal para reconocer patrones que se repiten en tu rutina.",
+      "Explica la relación entre alimentación, intestino y malestar habitual.",
+      "Aporta una base simple para empezar a tomar decisiones más conscientes.",
+    ],
   },
   {
+    slug: "reset-intestinal",
     title: "Reset Intestinal",
     description:
       "Un ebook práctico para ordenar tu alimentación, aliviar la sobrecarga digestiva y reconectar con señales básicas del cuerpo.",
@@ -52,8 +62,16 @@ const ebooks = [
       "Recuperá una rutina más clara y simple.",
       "Reconectá con señales básicas del cuerpo.",
     ],
+    modalSummary:
+      "Pensado como una guía de reorganización, este ebook propone una mirada práctica para bajar la sobrecarga digestiva y volver a una base más simple y sostenible.",
+    modalHighlights: [
+      "Te acompaña a ordenar comidas y hábitos con una lógica más amable.",
+      "Sirve para momentos en los que sentís el cuerpo saturado o confuso.",
+      "Buscá más claridad, no perfección: ese es el espíritu del material.",
+    ],
   },
   {
+    slug: "desayunos-antiinflamatorios",
     title: "100 Desayunos Antiinflamatorios",
     description:
       "Ideas simples, nutritivas y fáciles de aplicar para empezar el día con más energía y mejor digestión.",
@@ -61,6 +79,13 @@ const ebooks = [
       "Resolvé desayunos con opciones concretas.",
       "Sumá variedad sin complicarte.",
       "Empezá el día con más energía y saciedad.",
+    ],
+    modalSummary:
+      "Un ebook lleno de ideas para resolver tus mañanas con comidas más estables, prácticas y fáciles de sostener, sin tener que improvisar todos los días.",
+    modalHighlights: [
+      "Reúne propuestas concretas para simplificar tus desayunos.",
+      "Ayuda a empezar el día con opciones más ordenadas y nutritivas.",
+      "Es una buena guía si querés sumar variedad sin complicarte.",
     ],
   },
 ];
@@ -108,6 +133,33 @@ const faqs = [
   },
 ];
 
+const testimonials = [
+  {
+    name: "Marina R.",
+    role: "Lectora de SANALAB",
+    quote:
+      "Me ayudó a entender mejor por qué me sentía tan hinchada y a ordenar mis desayunos sin hacer cambios extremos.",
+  },
+  {
+    name: "Lucía G.",
+    role: "Usuario habitual",
+    quote:
+      "Lo que más valoro es que explica las cosas simple. No siento que me estén vendiendo una solución mágica.",
+  },
+  {
+    name: "Sofía M.",
+    role: "Consultora de la comunidad",
+    quote:
+      "Los ebooks me dieron ideas concretas para aplicar en mi rutina y volver a comer con más conciencia.",
+  },
+  {
+    name: "Camila P.",
+    role: "Seguidora de la marca",
+    quote:
+      "Es un contenido muy amable y claro. Me ayudó a relacionarme distinto con mi digestión y mis hábitos.",
+  },
+];
+
 export default function Home() {
   return (
     <main className="page-shell">
@@ -121,13 +173,13 @@ export default function Home() {
             />
           </a>
 
-          <nav className="topbar__nav" aria-label="Principal">
-            <a href="#sobre">Sobre SANALAB</a>
-            <a href="#temas">Temas</a>
-            <a href="#ebooks">Ebooks</a>
-            <a href="#preguntas">Preguntas frecuentes</a>
-            <a href="#whatsapp">WhatsApp</a>
-          </nav>
+        <nav className="topbar__nav" aria-label="Principal">
+          <a href="#sobre">Sobre SANALAB</a>
+          <a href="#temas">Temas</a>
+          <a href="#ebooks">Ebooks</a>
+          <a href="#preguntas">Preguntas frecuentes</a>
+          <a href="#whatsapp">WhatsApp</a>
+        </nav>
         </div>
       </header>
 
@@ -143,8 +195,9 @@ export default function Home() {
             <p className="hero__description">
               SANALAB comparte contenido claro y cercano sobre microbiota,
               digestión, inflamación, alimentación saludable y hábitos
-              sostenibles. Nuestros ebooks reúnen esa información en formatos
-              prácticos para acompañarte en tu vida cotidiana.
+              sostenibles. Nuestras herramientas digitales reúnen esa
+              información en formatos prácticos para acompañarte en tu vida
+              cotidiana.
             </p>
 
             <div className="hero__actions">
@@ -155,13 +208,6 @@ export default function Home() {
                 Conocer SANALAB
               </a>
             </div>
-
-            <ul className="hero__highlights" aria-label="Temas principales">
-              <li>Digestión</li>
-              <li>Microbiota</li>
-              <li>Alimentación consciente</li>
-              <li>Hábitos sostenibles</li>
-            </ul>
           </div>
         </div>
       </section>
@@ -228,6 +274,28 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="content-section content-section--soft" id="app">
+        <div className="content-grid">
+          <article className="info-card info-card--app">
+            <SectionHeading
+              eyebrow="Próximamente"
+              title="App SANALAB, un espacio para acompañarte en tu bienestar digestivo"
+            />
+            <p>
+              La App SANALAB, próximamente disponible en Play Store, será un
+              espacio pensado para acompañarte día a día con consejos simples,
+              guías prácticas y recursos claros para mejorar tu bienestar
+              digestivo y sostener hábitos saludables sin extremos.
+            </p>
+            <ul className="benefit-list benefit-list--compact">
+              <li>Consejos breves para tu digestión y alimentación consciente.</li>
+              <li>Recursos simples para sostener hábitos saludables en tu rutina.</li>
+              <li>Contenido claro para volver a organizarte cuando lo necesites.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
       <section className="content-section" id="temas">
         <SectionHeading
           eyebrow="Temas centrales"
@@ -261,12 +329,50 @@ export default function Home() {
               title={ebook.title}
               description={ebook.description}
               benefits={ebook.benefits}
-              buyHref="#"
+              buyHref={`#${ebook.slug}`}
               whatsappHref={whatsappHref}
             />
           ))}
         </div>
       </section>
+
+      {ebooks.map((ebook) => (
+        <section
+          key={ebook.slug}
+          className="ebook-modal"
+          id={ebook.slug}
+          aria-label={`Detalle de ${ebook.title}`}
+        >
+          <a className="ebook-modal__backdrop" href="#ebooks" aria-label="Cerrar detalle" />
+
+          <div className="ebook-modal__panel">
+            <div className="ebook-modal__header">
+              <p className="eyebrow">Vista del ebook</p>
+              <a className="ebook-modal__close" href="#ebooks" aria-label="Cerrar">
+                ×
+              </a>
+            </div>
+
+            <h2>{ebook.title}</h2>
+            <p className="ebook-modal__summary">{ebook.modalSummary}</p>
+
+            <ul className="ebook-modal__list">
+              {ebook.modalHighlights.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+
+            <div className="ebook-modal__actions">
+              <a className="button button--primary" href={whatsappHref}>
+                Comprar
+              </a>
+              <a className="button button--secondary" href="#ebooks">
+                Volver a ebooks
+              </a>
+            </div>
+          </div>
+        </section>
+      ))}
 
       <section className="content-section content-section--contrast">
         <div className="content-grid content-grid--split">
@@ -274,6 +380,7 @@ export default function Home() {
             <SectionHeading
               eyebrow="Para qué sirven"
               title="Una ayuda concreta para sumar comprensión y ordenar hábitos"
+              align="center"
               description="No buscan reemplazar procesos profesionales, sino acompañarte con información clara y herramientas realistas."
             />
           </div>
@@ -323,6 +430,17 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="content-section" id="testimonios">
+        <SectionHeading
+          eyebrow="Testimonios de clientes"
+          title="Experiencias reales de personas que encontraron recursos útiles en SANALAB"
+          description="Un vistazo breve a cómo estos contenidos ayudan a ordenar ideas, sumar claridad y acompañar el bienestar cotidiano."
+          align="center"
+        />
+
+        <TestimonialsCarousel testimonials={testimonials} />
+      </section>
+
       <section className="content-section" id="preguntas">
         <SectionHeading
           eyebrow="Preguntas frecuentes"
@@ -342,9 +460,17 @@ export default function Home() {
 
       <footer className="footer">
         <div className="footer__brand">
-          <h2>SANALAB</h2>
-          <p>Bienestar digestivo, microbiota y alimentación consciente.</p>
+          <img
+            className="footer__logo"
+            src="/img/SANALAB%20LOGO%20TRANSPARENTE%20recortado%202.png"
+            alt="SANALAB"
+          />
+          <p className="footer__brand-line">
+            Bienestar digestivo, microbiota y alimentación consciente.
+          </p>
         </div>
+
+        <hr className="footer__divider" />
 
         <nav className="footer__links" aria-label="Footer">
           <a href="#inicio">Inicio</a>
@@ -358,6 +484,21 @@ export default function Home() {
           El contenido de SANALAB es educativo y no reemplaza la consulta con un
           profesional de la salud.
         </p>
+
+        <div className="footer__policies" aria-label="Políticas legales">
+          <a className="footer__policy" href="#politica-de-privacidad">
+            <input type="checkbox" readOnly checked={false} />
+            <span>política de privacidad</span>
+          </a>
+          <a className="footer__policy" href="#terminos-y-condiciones">
+            <input type="checkbox" readOnly checked={false} />
+            <span>términos y condiciones</span>
+          </a>
+          <a className="footer__policy" href="#eliminacion-de-datos">
+            <input type="checkbox" readOnly checked={false} />
+            <span>eliminación de datos</span>
+          </a>
+        </div>
       </footer>
     </main>
   );
