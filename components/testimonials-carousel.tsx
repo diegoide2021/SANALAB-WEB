@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 
@@ -107,7 +107,7 @@ export function TestimonialsCarousel({
       >
         {testimonials.map((testimonial) => (
           <div className="testimonial-card" key={testimonial.name}>
-            <p className="testimonial-card__quote">“{testimonial.quote}”</p>
+            <p className="testimonial-card__quote">"{testimonial.quote}"</p>
             <div className="testimonial-card__footer">
               <strong>{testimonial.name}</strong>
               <span>{testimonial.role}</span>
@@ -128,3 +128,4 @@ export function TestimonialsCarousel({
     </div>
   );
 }
+

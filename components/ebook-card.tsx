@@ -4,6 +4,7 @@ type EbookCardProps = {
   benefits: string[];
   buyHref: string;
   whatsappHref: string;
+  coverImage?: string;
 };
 
 export function EbookCard({
@@ -12,15 +13,14 @@ export function EbookCard({
   benefits,
   buyHref,
   whatsappHref,
+  coverImage,
 }: EbookCardProps) {
   return (
     <article className="ebook-card">
       <div className="ebook-card__cover" aria-hidden="true">
-        <div className="ebook-card__cover-badge">SANALAB</div>
-        <div className="ebook-card__cover-content">
-          <span className="ebook-card__cover-label">Ebook digital</span>
-          <h3>{title}</h3>
-        </div>
+        {coverImage ? (
+          <img className="ebook-card__cover-image" src={coverImage} alt="" />
+        ) : null}
       </div>
 
       <div className="ebook-card__body">
@@ -39,7 +39,7 @@ export function EbookCard({
           <p className="ebook-card__price">Disponible próximamente</p>
           <div className="ebook-card__actions">
             <a className="button button--primary" href={buyHref}>
-              Ver ebook
+              Ver Ebook
             </a>
             <a className="button button--secondary" href={whatsappHref}>
               Consultar por WhatsApp

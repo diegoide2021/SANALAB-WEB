@@ -1,4 +1,5 @@
-import { EbookCard } from "@/components/ebook-card";
+﻿import { EbookCard } from "@/components/ebook-card";
+import { FooterPolicies } from "@/components/footer-policies";
 import { TestimonialsCarousel } from "@/components/testimonials-carousel";
 import { SectionHeading } from "@/components/section-heading";
 
@@ -37,6 +38,7 @@ const ebooks = [
   {
     slug: "vivir-inflamado",
     title: "Vivir Inflamado NO es Normal",
+    coverImage: "/img/vivir inflamado.png",
     description:
       "Una guía para entender la inflamación cotidiana, su relación con la alimentación, el intestino y los hábitos diarios.",
     benefits: [
@@ -55,6 +57,7 @@ const ebooks = [
   {
     slug: "reset-intestinal",
     title: "Reset Intestinal",
+    coverImage: "/img/reset intestinal.png",
     description:
       "Un ebook práctico para ordenar tu alimentación, aliviar la sobrecarga digestiva y reconectar con señales básicas del cuerpo.",
     benefits: [
@@ -73,6 +76,7 @@ const ebooks = [
   {
     slug: "desayunos-antiinflamatorios",
     title: "100 Desayunos Antiinflamatorios",
+    coverImage: "/img/100 desayunos.png",
     description:
       "Ideas simples, nutritivas y fáciles de aplicar para empezar el día con más energía y mejor digestión.",
     benefits: [
@@ -104,6 +108,8 @@ const steps = [
   "Recibís el material en tu email o por WhatsApp.",
   "Podés escribirnos si necesitás ayuda para elegir o empezar.",
 ];
+
+const stepIcons = ["/img/1.png", "/img/2.png", "/img/3.png", "/img/4.png"];
 
 const faqs = [
   {
@@ -158,6 +164,12 @@ const testimonials = [
     quote:
       "Es un contenido muy amable y claro. Me ayudó a relacionarme distinto con mi digestión y mis hábitos.",
   },
+  {
+    name: "Valentina S.",
+    role: "Lectora reciente",
+    quote:
+      "Me gustó mucho porque no abrumó con información. Sentí que podía empezar de a poco y con más calma.",
+  },
 ];
 
 export default function Home() {
@@ -202,7 +214,7 @@ export default function Home() {
 
             <div className="hero__actions">
               <a className="button button--primary" href="#ebooks">
-                Explorar ebooks
+                Explorar Ebooks
               </a>
               <a className="button button--secondary" href="#sobre">
                 Conocer SANALAB
@@ -217,30 +229,44 @@ export default function Home() {
           <div className="hero-panel__section">
             <span className="hero-panel__label">Qué vas a encontrar</span>
             <ul className="hero-panel__list">
-              <li>Guías simples basadas en ciencia.</li>
-              <li>Herramientas para aplicar sin extremos.</li>
-              <li>Recursos para elegir con más claridad.</li>
+              <li className="hero-panel__list-item--icon">
+                <img className="hero-panel__list-icon" src="/img/guias.png" alt="" aria-hidden="true" />
+                <span>Guías simples basadas en ciencia.</span>
+              </li>
+              <li className="hero-panel__list-item--icon">
+                <img className="hero-panel__list-icon" src="/img/herramientas.png" alt="" aria-hidden="true" />
+                <span>Herramientas para aplicar sin extremos.</span>
+              </li>
+              <li className="hero-panel__list-item--icon">
+                <img className="hero-panel__list-icon" src="/img/recursos.png" alt="" aria-hidden="true" />
+                <span>Recursos para elegir con más claridad.</span>
+              </li>
             </ul>
           </div>
 
           <div className="hero-panel__section hero-panel__section--accent">
             <span className="hero-panel__label">Biblioteca digital</span>
-            <div className="hero-panel__stack" aria-hidden="true">
-              <div className="hero-panel__book hero-panel__book--one" />
-              <div className="hero-panel__book hero-panel__book--two" />
-              <div className="hero-panel__book hero-panel__book--three" />
+            <img
+              className="hero-panel__biblioteca-thumb"
+              src="/img/biblioteca2.png"
+              alt="Colección de ebooks de SANALAB"
+            />
+            <div className="hero-panel__ebook-row">
+              <img
+                className="hero-panel__ebook-icon"
+                src="/img/ebooks.png"
+                alt=""
+                aria-hidden="true"
+              />
+              <p>Ebooks sobre inflamación, orden digestivo y desayunos antiinflamatorios.</p>
             </div>
-            <p>
-              Ebooks sobre inflamación, orden digestivo y desayunos
-              antiinflamatorios.
-            </p>
           </div>
         </aside>
       </section>
 
       <section className="content-section content-section--soft" id="sobre">
         <div className="content-grid content-grid--two">
-          <div className="info-card info-card--large">
+          <div className="info-card info-card--large info-card--about">
             <SectionHeading
               eyebrow="Qué es SANALAB"
               title="Una web sencilla para aprender, orientarte y encontrar recursos útiles"
@@ -331,6 +357,7 @@ export default function Home() {
               benefits={ebook.benefits}
               buyHref={`#${ebook.slug}`}
               whatsappHref={whatsappHref}
+              coverImage={ebook.coverImage}
             />
           ))}
         </div>
@@ -403,6 +430,14 @@ export default function Home() {
         <div className="steps-grid">
           {steps.map((step, index) => (
             <article className="step-card" key={step}>
+              <span className="step-card__icon-wrap" aria-hidden="true">
+                <img
+                  className="step-card__icon"
+                  src={stepIcons[index]}
+                  alt=""
+                  aria-hidden="true"
+                />
+              </span>
               <span className="step-card__number">0{index + 1}</span>
               <p>{step}</p>
             </article>
@@ -480,26 +515,18 @@ export default function Home() {
           <a href={whatsappHref}>WhatsApp</a>
         </nav>
 
+        <hr className="footer__divider footer__divider--between" />
+
         <p className="footer__legal">
           El contenido de SANALAB es educativo y no reemplaza la consulta con un
           profesional de la salud.
         </p>
 
-        <div className="footer__policies" aria-label="Políticas legales">
-          <a className="footer__policy" href="#politica-de-privacidad">
-            <input type="checkbox" readOnly checked={false} />
-            <span>política de privacidad</span>
-          </a>
-          <a className="footer__policy" href="#terminos-y-condiciones">
-            <input type="checkbox" readOnly checked={false} />
-            <span>términos y condiciones</span>
-          </a>
-          <a className="footer__policy" href="#eliminacion-de-datos">
-            <input type="checkbox" readOnly checked={false} />
-            <span>eliminación de datos</span>
-          </a>
-        </div>
+        <FooterPolicies />
       </footer>
     </main>
   );
 }
+
+
+
