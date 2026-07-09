@@ -1,5 +1,6 @@
 ﻿import { EbookCard } from "@/components/ebook-card";
 import { FooterPolicies } from "@/components/footer-policies";
+import { SiteHeader } from "@/components/site-header";
 import { TestimonialsCarousel } from "@/components/testimonials-carousel";
 import { SectionHeading } from "@/components/section-heading";
 
@@ -175,25 +176,7 @@ const testimonials = [
 export default function Home() {
   return (
     <main className="page-shell">
-      <header className="topbar">
-        <div className="topbar__inner">
-          <a className="brand" href="#inicio">
-            <img
-              className="brand__logo"
-              src="/img/SANALAB%20LOGO%20FONDO%20TRANPARENTE%20recortado.png"
-              alt="SANALAB"
-            />
-          </a>
-
-        <nav className="topbar__nav" aria-label="Principal">
-          <a href="#sobre">Sobre SANALAB</a>
-          <a href="#temas">Temas</a>
-          <a href="#ebooks">Ebooks</a>
-          <a href="#preguntas">Preguntas frecuentes</a>
-          <a href="#whatsapp">WhatsApp</a>
-        </nav>
-        </div>
-      </header>
+      <SiteHeader />
 
       <section className="hero hero--website" id="inicio">
         <div className="hero__backdrop" aria-hidden="true">
