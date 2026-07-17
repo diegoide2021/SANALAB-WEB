@@ -599,6 +599,26 @@ img {
   padding-top: 2.75rem;
 }
 
+.content-section--image-break {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.image-break {
+  width: var(--container);
+  margin: 0 auto;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 18px 40px rgba(124, 97, 68, 0.1);
+  border: 1px solid rgba(163, 103, 81, 0.12);
+}
+
+.image-break__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .content-section--contrast::before {
   background: linear-gradient(135deg, rgba(95, 127, 82, 0.08), rgba(197, 141, 98, 0.08));
 }
@@ -878,11 +898,17 @@ img {
   gap: 0.8rem;
 }
 
-.ebook-card__copy h3 {
+.ebook-card__title {
   font-size: 1.4rem;
   line-height: 1.1;
   font-family: var(--font-display);
   font-weight: 600;
+}
+
+.ebook-card__title--long {
+  white-space: nowrap;
+  font-size: clamp(1rem, 1.15vw, 1.26rem);
+  letter-spacing: -0.015em;
 }
 
 .ebook-card__copy p {
@@ -1559,11 +1585,26 @@ img {
     font-size: 0.98rem;
   }
 
+  .ebook-card__title {
+    font-size: 1.46rem;
+    line-height: 1.04;
+  }
+
+  .ebook-card__title--long {
+    font-size: 1.34rem;
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+  }
+
   .hero__description {
     margin-top: 1rem;
     font-size: 0.96rem;
     line-height: 1.6;
     max-width: 36rem;
+  }
+
+  .content-section--image-break {
+    padding-bottom: 2.25rem;
   }
 
   .info-card .section-heading {

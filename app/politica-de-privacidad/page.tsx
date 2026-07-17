@@ -91,6 +91,18 @@ export const metadata: Metadata = {
   title: "Política de Privacidad | SANALAB",
   description:
     "Política de Privacidad de SANALAB para la web, ebooks y recursos digitales.",
+  keywords: [
+    "SANALAB",
+    "política de privacidad",
+    "datos personales",
+    "privacidad",
+    "ebooks",
+    "recursos digitales",
+    "protección de datos",
+    "tratamiento de datos personales",
+    "privacidad online",
+    "web de bienestar",
+  ],
 };
 
 export default function PrivacyPolicyPage() {
@@ -102,7 +114,7 @@ export default function PrivacyPolicyPage() {
             <img
               className="brand__logo"
               src="/img/SANALAB%20LOGO%20FONDO%20TRANPARENTE%20recortado.png"
-              alt="SANALAB"
+              alt="Logo de SANALAB"
             />
           </a>
 
@@ -159,7 +171,7 @@ export default function PrivacyPolicyPage() {
           <img
             className="footer__logo"
             src="/img/SANALAB%20LOGO%20TRANSPARENTE%20recortado%202.png"
-            alt="SANALAB"
+            alt="Logo de SANALAB"
           />
           <p className="footer__brand-line">
             Bienestar digestivo, microbiota y alimentación consciente.

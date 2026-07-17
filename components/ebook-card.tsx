@@ -15,17 +15,21 @@ export function EbookCard({
   whatsappHref,
   coverImage,
 }: EbookCardProps) {
+  const isLongTitle = title === "30 Alimentos Para Nutrir Tu Microbiota";
+
   return (
     <article className="ebook-card">
       <div className="ebook-card__cover" aria-hidden="true">
         {coverImage ? (
-          <img className="ebook-card__cover-image" src={coverImage} alt="" />
+          <img className="ebook-card__cover-image" src={coverImage} alt={title} />
         ) : null}
       </div>
 
       <div className="ebook-card__body">
         <div className="ebook-card__copy">
-          <h3>{title}</h3>
+          <h3 className={isLongTitle ? "ebook-card__title ebook-card__title--long" : "ebook-card__title"}>
+            {title}
+          </h3>
           <p>{description}</p>
         </div>
 

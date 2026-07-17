@@ -110,6 +110,18 @@ export const metadata: Metadata = {
   title: "Eliminación de Datos | SANALAB",
   description:
     "Política de Eliminación de Datos de SANALAB para la web, ebooks y recursos digitales.",
+  keywords: [
+    "SANALAB",
+    "eliminación de datos",
+    "datos personales",
+    "privacidad",
+    "ebooks",
+    "recursos digitales",
+    "borrado de datos",
+    "supresión de datos",
+    "protección de datos personales",
+    "web de bienestar",
+  ],
 };
 
 export default function DataDeletionPage() {
@@ -121,7 +133,7 @@ export default function DataDeletionPage() {
             <img
               className="brand__logo"
               src="/img/SANALAB%20LOGO%20FONDO%20TRANPARENTE%20recortado.png"
-              alt="SANALAB"
+              alt="Logo de SANALAB"
             />
           </a>
 
@@ -179,7 +191,7 @@ export default function DataDeletionPage() {
           <img
             className="footer__logo"
             src="/img/SANALAB%20LOGO%20TRANSPARENTE%20recortado%202.png"
-            alt="SANALAB"
+            alt="Logo de SANALAB"
           />
           <p className="footer__brand-line">
             Bienestar digestivo, microbiota y alimentación consciente.

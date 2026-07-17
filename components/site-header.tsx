@@ -2,6 +2,15 @@
 
 import { useState } from "react";
 
+const navigationLinks = [
+  { href: "#sobre", label: "Sobre SANALAB" },
+  { href: "#app", label: "App SANALAB", mobileOnly: true },
+  { href: "#temas", label: "Temas" },
+  { href: "#ebooks", label: "Ebooks" },
+  { href: "#preguntas", label: "Preguntas frecuentes" },
+  { href: "#whatsapp", label: "WhatsApp" },
+];
+
 export function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -12,7 +21,7 @@ export function SiteHeader() {
           <img
             className="brand__logo"
             src="/img/SANALAB%20LOGO%20FONDO%20TRANPARENTE%20recortado.png"
-            alt="SANALAB"
+            alt="Logo de SANALAB"
           />
         </a>
 
@@ -33,16 +42,22 @@ export function SiteHeader() {
 
         <nav className="topbar__nav topbar__nav--desktop" aria-label="Principal">
           <div className="topbar__nav-row topbar__nav-row--primary">
-            <a href="#sobre">Sobre SANALAB</a>
-            <a className="topbar__nav-app" href="#app">
-              App SANALAB
-            </a>
-            <a href="#temas">Temas</a>
+            {navigationLinks.slice(0, 3).map((link) => (
+              <a
+                key={link.href}
+                className={link.mobileOnly ? "topbar__nav-app" : undefined}
+                href={link.href}
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
           <div className="topbar__nav-row topbar__nav-row--secondary">
-            <a href="#ebooks">Ebooks</a>
-            <a href="#preguntas">Preguntas frecuentes</a>
-            <a href="#whatsapp">WhatsApp</a>
+            {navigationLinks.slice(3).map((link) => (
+              <a key={link.href} href={link.href}>
+                {link.label}
+              </a>
+            ))}
           </div>
         </nav>
       </div>
@@ -52,28 +67,11 @@ export function SiteHeader() {
         id="mobile-menu"
       >
         <nav className="topbar__nav topbar__nav--mobile" aria-label="Principal móvil">
-          <div className="topbar__nav-row topbar__nav-row--primary">
-            <a href="#sobre" onClick={() => setIsOpen(false)}>
-              Sobre SANALAB
+          {navigationLinks.map((link) => (
+            <a key={link.href} href={link.href} onClick={() => setIsOpen(false)}>
+              {link.label}
             </a>
-            <a href="#app" onClick={() => setIsOpen(false)}>
-              App SANALAB
-            </a>
-            <a href="#temas" onClick={() => setIsOpen(false)}>
-              Temas
-            </a>
-          </div>
-          <div className="topbar__nav-row topbar__nav-row--secondary">
-            <a href="#ebooks" onClick={() => setIsOpen(false)}>
-              Ebooks
-            </a>
-            <a href="#preguntas" onClick={() => setIsOpen(false)}>
-              Preguntas frecuentes
-            </a>
-            <a href="#whatsapp" onClick={() => setIsOpen(false)}>
-              WhatsApp
-            </a>
-          </div>
+          ))}
         </nav>
       </div>
     </header>

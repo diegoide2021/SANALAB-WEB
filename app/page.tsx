@@ -1,10 +1,39 @@
 ﻿import { EbookCard } from "@/components/ebook-card";
+import type { Metadata } from "next";
 import { FooterPolicies } from "@/components/footer-policies";
 import { SiteHeader } from "@/components/site-header";
 import { TestimonialsCarousel } from "@/components/testimonials-carousel";
 import { SectionHeading } from "@/components/section-heading";
 
-const whatsappHref = "https://wa.me/TUNUMERO";
+export const metadata: Metadata = {
+  title: "SANALAB | Ebooks de bienestar, microbiota y alimentación consciente",
+  description:
+    "SANALAB reúne ebooks y recursos digitales sobre microbiota, digestión, inflamación, alimentación saludable y hábitos sostenibles para acompañarte con información clara y simple.",
+  keywords: [
+    "SANALAB",
+    "microbiota",
+    "ebook microbiota",
+    "guía microbiota",
+    "alimentación saludable",
+    "bienestar digestivo",
+    "salud intestinal",
+    "inflamación",
+    "digestión",
+    "ebook digestión",
+    "ebook bienestar",
+    "ebooks de bienestar",
+    "alimentación antiinflamatoria",
+    "alimentación consciente",
+    "hábitos saludables",
+    "hábitos sostenibles",
+    "bienestar integral",
+    "recursos digitales",
+  ],
+};
+
+const whatsappPhone = "1127295304";
+const whatsappMessage = "Hola SANALAB 👋, necesito información acerca de sus productos";
+const whatsappHref = `https://api.whatsapp.com/send?phone=${whatsappPhone}&text=${encodeURIComponent(whatsappMessage)}`;
 
 const topics = [
   {
@@ -57,8 +86,8 @@ const ebooks = [
   },
   {
     slug: "reset-intestinal",
-    title: "Reset Intestinal",
-    coverImage: "/img/reset intestinal.png",
+    title: "Reset Intestinal de 7 días",
+    coverImage: "/img/reset intestinal de 7 dias.png",
     description:
       "Un ebook práctico para ordenar tu alimentación, aliviar la sobrecarga digestiva y reconectar con señales básicas del cuerpo.",
     benefits: [
@@ -76,21 +105,21 @@ const ebooks = [
   },
   {
     slug: "desayunos-antiinflamatorios",
-    title: "100 Desayunos Antiinflamatorios",
-    coverImage: "/img/100 desayunos.png",
+    title: "30 Alimentos Para Nutrir Tu Microbiota",
+    coverImage: "/img/30 alimentos para nutrir tu microbiota.png",
     description:
-      "Ideas simples, nutritivas y fáciles de aplicar para empezar el día con más energía y mejor digestión.",
+      "Una guía con 30 alimentos para nutrir tu microbiota y acompañar tu bienestar digestivo.",
     benefits: [
-      "Resolvé desayunos con opciones concretas.",
-      "Sumá variedad sin complicarte.",
-      "Empezá el día con más energía y saciedad.",
+      "Conocé alimentos que acompañan tu microbiota.",
+      "Sumá ideas simples para tu alimentación diaria.",
+      "Elegí opciones más variadas y nutritivas.",
     ],
     modalSummary:
-      "Un ebook lleno de ideas para resolver tus mañanas con comidas más estables, prácticas y fáciles de sostener, sin tener que improvisar todos los días.",
+      "Una guía con 30 alimentos pensados para nutrir tu microbiota, sumar variedad a tu alimentación y acompañar tu bienestar digestivo de forma simple.",
     modalHighlights: [
-      "Reúne propuestas concretas para simplificar tus desayunos.",
-      "Ayuda a empezar el día con opciones más ordenadas y nutritivas.",
-      "Es una buena guía si querés sumar variedad sin complicarte.",
+      "Reúne alimentos clave para sumar a tu rutina diaria.",
+      "Ayuda a elegir con más claridad qué comer para nutrir tu microbiota.",
+      "Es una guía práctica si querés ordenar tu alimentación sin complicarte.",
     ],
   },
 ];
@@ -179,8 +208,12 @@ export default function Home() {
       <SiteHeader />
 
       <section className="hero hero--website" id="inicio">
-        <div className="hero__backdrop" aria-hidden="true">
-          <img className="hero__backdrop-image" src="/img/hero.png" alt="" />
+        <div className="hero__backdrop">
+          <img
+            className="hero__backdrop-image"
+            src="/img/hero.png"
+            alt="Ilustración del cuerpo humano con el sistema digestivo iluminado"
+          />
         </div>
 
         <div className="hero__inner">
@@ -232,7 +265,7 @@ export default function Home() {
             <img
               className="hero-panel__biblioteca-thumb"
               src="/img/biblioteca2.png"
-              alt="Colección de ebooks de SANALAB"
+              alt="Portada de la biblioteca digital de SANALAB con libros sobre inflamación, orden digestivo y desayunos antiinflamatorios"
             />
             <div className="hero-panel__ebook-row">
               <img
@@ -245,6 +278,16 @@ export default function Home() {
             </div>
           </div>
         </aside>
+      </section>
+
+      <section className="content-section content-section--image-break" aria-label="Imagen destacada SANALAB">
+        <div className="image-break">
+          <img
+            className="image-break__img"
+            src="/img/imagen.png"
+            alt="Ilustración de bienestar femenino con el mensaje bienestar no es hacerlo perfecto"
+          />
+        </div>
       </section>
 
       <section className="content-section content-section--soft" id="sobre">
@@ -481,7 +524,7 @@ export default function Home() {
           <img
             className="footer__logo"
             src="/img/SANALAB%20LOGO%20TRANSPARENTE%20recortado%202.png"
-            alt="SANALAB"
+            alt="Logo de SANALAB"
           />
           <p className="footer__brand-line">
             Bienestar digestivo, microbiota y alimentación consciente.
