@@ -1,6 +1,7 @@
 ﻿import { EbookCard } from "@/components/ebook-card";
 import type { Metadata } from "next";
 import { FooterPolicies } from "@/components/footer-policies";
+import { FadeSlider } from "@/components/fade-slider";
 import { SiteHeader } from "@/components/site-header";
 import { TestimonialsCarousel } from "@/components/testimonials-carousel";
 import { SectionHeading } from "@/components/section-heading";
@@ -62,6 +63,25 @@ const values = [
   "Basado en ciencia, explicado de forma simple.",
   "Enfoque humano, sin soluciones mágicas ni promesas extremas.",
   "Hábitos sostenibles para una vida real, no idealizada.",
+];
+
+const featuredSlides = [
+  {
+    src: "/img/imagen 1.png",
+    alt: "Imagen SANALAB con estética natural y mensaje bienestar real",
+  },
+  {
+    src: "/img/imagen 2.png",
+    alt: "Ilustración SANALAB sobre escuchar las emociones y el cuerpo",
+  },
+  {
+    src: "/img/imagen 3.png",
+    alt: "Ilustración SANALAB con mensaje bienestar no es hacerlo perfecto",
+  },
+  {
+    src: "/img/imagen 5.png",
+    alt: "Ilustración SANALAB con mensaje pequeños cambios transformaciones profundas",
+  },
 ];
 
 const ebooks = [
@@ -200,6 +220,12 @@ const testimonials = [
     quote:
       "Me gustó mucho porque no abrumó con información. Sentí que podía empezar de a poco y con más calma.",
   },
+  {
+    name: "Florencia A.",
+    role: "Lectora de recursos digitales",
+    quote:
+      "Encontré explicaciones claras para entender mejor mi alimentación diaria y hacer cambios posibles sin exigirme de más.",
+  },
 ];
 
 export default function Home() {
@@ -282,20 +308,16 @@ export default function Home() {
 
       <section className="content-section content-section--image-break" aria-label="Imagen destacada SANALAB">
         <div className="image-break">
-          <img
-            className="image-break__img"
-            src="/img/imagen.png"
-            alt="Ilustración de bienestar femenino con el mensaje bienestar no es hacerlo perfecto"
-          />
+          <FadeSlider slides={featuredSlides} />
         </div>
       </section>
 
       <section className="content-section content-section--soft" id="sobre">
-        <div className="content-grid content-grid--two">
-          <div className="info-card info-card--large info-card--about">
+        <div className="content-grid content-grid--three">
+          <div className="info-card info-card--about">
             <SectionHeading
               eyebrow="Qué es SANALAB"
-              title="Una web sencilla para aprender, orientarte y encontrar recursos útiles"
+              title="Herramientas digitales para aprender, orientarte y encontrar recursos útiles"
             />
             <p>
               SanaLab es una plataforma de bienestar integral enfocada en
@@ -303,12 +325,6 @@ export default function Home() {
               contenido simple, accesible y práctico para ayudarte a tomar
               mejores decisiones sobre tu cuerpo, sin soluciones mágicas ni
               promesas extremas.
-            </p>
-            <p>
-              Muchas personas viven con inflamación, digestiones pesadas,
-              cansancio o falta de claridad sobre qué comer. El problema no
-              siempre es la falta de voluntad, sino la falta de información
-              simple, ordenada y aplicable.
             </p>
           </div>
 
@@ -322,6 +338,19 @@ export default function Home() {
                 <li key={value}>{value}</li>
               ))}
             </ul>
+          </div>
+
+          <div className="info-card info-card--companion">
+            <SectionHeading
+              eyebrow="Acompañamiento"
+              title="Nuestra forma de acompañarte"
+            />
+            <p>
+              Muchas personas viven con inflamación, digestiones pesadas,
+              cansancio o falta de claridad sobre qué comer. En SANALAB
+              traducimos esa información en recursos simples para que puedas
+              entender tu cuerpo y avanzar paso a paso.
+            </p>
           </div>
         </div>
       </section>
@@ -344,6 +373,12 @@ export default function Home() {
               <li>Recursos simples para sostener hábitos saludables en tu rutina.</li>
               <li>Contenido claro para volver a organizarte cuando lo necesites.</li>
             </ul>
+            <img
+              className="info-card__decor-leaf"
+              src="/img/decor-app-sanalab-clean.png"
+              alt=""
+              aria-hidden="true"
+            />
           </article>
         </div>
       </section>

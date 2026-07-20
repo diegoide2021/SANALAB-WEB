@@ -1,6 +1,6 @@
-﻿"use client";
+"use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type Testimonial = {
   name: string;
@@ -15,76 +15,107 @@ type TestimonialsCarouselProps = {
 export function TestimonialsCarousel({
   testimonials,
 }: TestimonialsCarouselProps) {
-  const carouselRef = useRef<HTMLDivElement | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [maxStartIndex, setMaxStartIndex] = useState(0);
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const [activePosition, setActivePosition] = useState(3);
+  const [stepWidth, setStepWidth] = useState(0);
+  const [visibleCards, setVisibleCards] = useState(3);
+  const [transitionEnabled, setTransitionEnabled] = useState(true);
+
+  const clonedBefore = useMemo(
+    () => testimonials.slice(Math.max(testimonials.length - visibleCards, 0)),
+    [testimonials, visibleCards]
+  );
+
+  const clonedAfter = useMemo(
+    () => testimonials.slice(0, Math.min(visibleCards, testimonials.length)),
+    [testimonials, visibleCards]
+  );
+
+  const renderedTestimonials = useMemo(
+    () => [...clonedBefore, ...testimonials, ...clonedAfter],
+    [clonedBefore, testimonials, clonedAfter]
+  );
 
   useEffect(() => {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
+    setTransitionEnabled(false);
+    setActivePosition(visibleCards);
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        setTransitionEnabled(true);
+      });
+    });
+  }, [visibleCards]);
+
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
 
     const measure = () => {
-      const card = carousel.querySelector(".testimonial-card") as HTMLElement | null;
-      if (!card) return;
+      const card = viewport.querySelector(".testimonial-card") as HTMLElement | null;
+      const track = viewport.querySelector(".testimonials-carousel__track") as HTMLElement | null;
+      if (!card || !track) return;
 
-      const styles = window.getComputedStyle(carousel);
+      const styles = window.getComputedStyle(track);
       const gap = Number.parseFloat(styles.columnGap || styles.gap || "0") || 0;
       const step = card.offsetWidth + gap;
       if (!step) return;
 
-      const visibleCards = Math.max(
+      const nextVisibleCards = Math.max(
         1,
-        Math.round((carousel.clientWidth + gap) / step)
-      );
-      const nextMaxStartIndex = Math.max(testimonials.length - visibleCards, 0);
-      const nextCurrentIndex = Math.min(
-        nextMaxStartIndex,
-        Math.max(0, Math.round(carousel.scrollLeft / step))
+        Math.round((viewport.clientWidth + gap) / step)
       );
 
-      setMaxStartIndex(nextMaxStartIndex);
-      setCurrentIndex(nextCurrentIndex);
+      setVisibleCards(nextVisibleCards);
+      setStepWidth(step);
     };
 
     measure();
     window.addEventListener("resize", measure);
-    carousel.addEventListener("scroll", measure, { passive: true });
 
-    return () => {
-      window.removeEventListener("resize", measure);
-      carousel.removeEventListener("scroll", measure);
-    };
+    return () => window.removeEventListener("resize", measure);
+  }, [testimonials.length, renderedTestimonials.length]);
+
+  const moveNext = useCallback(() => {
+    if (testimonials.length < 2) return;
+
+    setTransitionEnabled(true);
+    setActivePosition((currentPosition) => currentPosition + 1);
   }, [testimonials.length]);
 
-  const moveCarousel = (direction: -1 | 1) => {
-    const carousel = carouselRef.current;
-    if (!carousel || testimonials.length < 2) return;
+  const movePrevious = () => {
+    if (testimonials.length < 2) return;
 
-    const card = carousel.querySelector(".testimonial-card") as HTMLElement | null;
-    if (!card) return;
+    setTransitionEnabled(true);
+    setActivePosition((currentPosition) => currentPosition - 1);
+  };
 
-    const styles = window.getComputedStyle(carousel);
-    const gap = Number.parseFloat(styles.columnGap || styles.gap || "0") || 0;
-    const step = card.offsetWidth + gap;
-    if (!step) return;
+  useEffect(() => {
+    if (testimonials.length < 2) return;
 
-    const visibleCards = Math.max(
-      1,
-      Math.round((carousel.clientWidth + gap) / step)
-    );
-    const nextMaxStartIndex = Math.max(testimonials.length - visibleCards, 0);
-    const currentStartIndex = Math.round(carousel.scrollLeft / step);
+    const intervalId = window.setInterval(moveNext, 4200);
 
-    let nextIndex = currentStartIndex + direction;
-    if (nextIndex > nextMaxStartIndex) nextIndex = nextMaxStartIndex;
-    if (nextIndex < 0) nextIndex = 0;
+    return () => window.clearInterval(intervalId);
+  }, [moveNext, testimonials.length]);
 
-    setMaxStartIndex(nextMaxStartIndex);
-    setCurrentIndex(nextIndex);
+  const handleTransitionEnd = () => {
+    const firstRealPosition = visibleCards;
+    const afterLastRealPosition = visibleCards + testimonials.length;
 
-    carousel.scrollTo({
-      left: nextIndex * step,
-      behavior: "smooth",
+    if (activePosition >= afterLastRealPosition) {
+      setTransitionEnabled(false);
+      setActivePosition(firstRealPosition);
+    }
+
+    if (activePosition < firstRealPosition) {
+      setTransitionEnabled(false);
+      setActivePosition(afterLastRealPosition - 1);
+    }
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        setTransitionEnabled(true);
+      });
     });
   };
 
@@ -93,39 +124,45 @@ export function TestimonialsCarousel({
       <button
         className="testimonials-carousel__button testimonials-carousel__button--left"
         type="button"
-        onClick={() => moveCarousel(-1)}
-        aria-label="Testimonio anterior"
-        disabled={currentIndex <= 0}
+        onClick={movePrevious}
+        aria-label="Ver testimonio anterior"
       >
         {"<"}
       </button>
 
       <div
         className="testimonials-carousel"
-        aria-label="Carrusel de testimonios"
-        ref={carouselRef}
+        aria-label="Carrusel automático de testimonios"
+        ref={viewportRef}
       >
-        {testimonials.map((testimonial) => (
-          <div className="testimonial-card" key={testimonial.name}>
-            <p className="testimonial-card__quote">"{testimonial.quote}"</p>
-            <div className="testimonial-card__footer">
-              <strong>{testimonial.name}</strong>
-              <span>{testimonial.role}</span>
+        <div
+          className="testimonials-carousel__track"
+          style={{
+            transform: `translateX(-${activePosition * stepWidth}px)`,
+            transition: transitionEnabled ? undefined : "none",
+          }}
+          onTransitionEnd={handleTransitionEnd}
+        >
+          {renderedTestimonials.map((testimonial, index) => (
+            <div className="testimonial-card" key={`${testimonial.name}-${index}`}>
+              <p className="testimonial-card__quote">"{testimonial.quote}"</p>
+              <div className="testimonial-card__footer">
+                <strong>{testimonial.name}</strong>
+                <span>{testimonial.role}</span>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       <button
         className="testimonials-carousel__button testimonials-carousel__button--right"
         type="button"
-        onClick={() => moveCarousel(1)}
-        aria-label="Testimonio siguiente"
-        disabled={currentIndex >= maxStartIndex}
+        onClick={moveNext}
+        aria-label="Ver testimonio siguiente"
       >
         {">"}
       </button>
     </div>
   );
 }
-

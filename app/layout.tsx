@@ -11,9 +11,12 @@ export const metadata: Metadata = {
   description:
     "SANALAB reúne ebooks y recursos digitales sobre microbiota, digestión, inflamación, alimentación saludable y hábitos sostenibles para acompañarte con información clara y simple.",
   icons: {
-    icon: "/img/SANALAB%20LOGO%20WEB.png",
-    shortcut: "/img/SANALAB%20LOGO%20WEB.png",
-    apple: "/img/SANALAB%20LOGO%20WEB.png",
+    icon: [
+      { url: "/favicon.png", type: "image/png", sizes: "48x48" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/favicon.png",
+    apple: "/apple-icon.png",
   },
 };
 
