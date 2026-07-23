@@ -5,6 +5,8 @@ type EbookCardProps = {
   buyHref: string;
   whatsappHref: string;
   coverImage?: string;
+  priceLabel?: string;
+  buyLabel?: string;
 };
 
 export function EbookCard({
@@ -14,15 +16,15 @@ export function EbookCard({
   buyHref,
   whatsappHref,
   coverImage,
+  priceLabel = "Disponible próximamente",
+  buyLabel = "Ver Ebook",
 }: EbookCardProps) {
   const isLongTitle = title === "30 Alimentos Para Nutrir Tu Microbiota";
 
   return (
     <article className="ebook-card">
       <div className="ebook-card__cover" aria-hidden="true">
-        {coverImage ? (
-          <img className="ebook-card__cover-image" src={coverImage} alt={title} />
-        ) : null}
+        {coverImage ? <img className="ebook-card__cover-image" src={coverImage} alt={title} /> : null}
       </div>
 
       <div className="ebook-card__body">
@@ -40,10 +42,10 @@ export function EbookCard({
         </ul>
 
         <div className="ebook-card__footer">
-          <p className="ebook-card__price">Disponible próximamente</p>
+          <p className="ebook-card__price">{priceLabel}</p>
           <div className="ebook-card__actions">
             <a className="button button--primary" href={buyHref}>
-              Ver Ebook
+              {buyLabel}
             </a>
             <a className="button button--secondary" href={whatsappHref}>
               Consultar por WhatsApp

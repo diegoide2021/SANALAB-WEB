@@ -36,6 +36,30 @@ const whatsappPhone = "1127295304";
 const whatsappMessage = "Hola SANALAB 👋, necesito información acerca de sus productos";
 const whatsappHref = `https://api.whatsapp.com/send?phone=${whatsappPhone}&text=${encodeURIComponent(whatsappMessage)}`;
 
+const cardConsultMessages = {
+  "vivir-inflamado": "Hola SANALAB 👋\nNecesito información sobre el pack VIVIR INFLAMADO NO ES NORMAL",
+  "reset-intestinal": "Hola SANALAB 👋\nNecesito información sobre el pack PIEL DESDE ADENTRO",
+  "desayunos-antiinflamatorios": "Hola SANALAB 👋\nNecesito información sobre el pack NO ES LA EDAD, SON TUS HÁBITOS",
+} as const;
+
+const getCardConsultHref = (slug: keyof typeof cardConsultMessages | string) => {
+  const message = cardConsultMessages[slug as keyof typeof cardConsultMessages] ?? whatsappMessage;
+
+  return `https://api.whatsapp.com/send?phone=${whatsappPhone}&text=${encodeURIComponent(message)}`;
+};
+
+const packPurchaseMessages = {
+  "vivir-inflamado": "Hola SANALAB 👋\nNecesito información sobre el pack VIVIR INFLAMADO NO ES NORMAL",
+  "reset-intestinal": "Hola SANALAB 👋\nNecesito información sobre el pack PIEL DESDE ADENTRO",
+  "desayunos-antiinflamatorios": "Hola SANALAB 👋\nNecesito información sobre el pack NO ES LA EDAD, SON TUS HÁBITOS",
+} as const;
+
+const getPackPurchaseHref = (slug: keyof typeof packPurchaseMessages | string) => {
+  const message = packPurchaseMessages[slug as keyof typeof packPurchaseMessages] ?? whatsappMessage;
+
+  return `https://api.whatsapp.com/send?phone=${whatsappPhone}&text=${encodeURIComponent(message)}`;
+};
+
 const topics = [
   {
     title: "Digestión y bienestar diario",
@@ -103,43 +127,53 @@ const ebooks = [
       "Explica la relación entre alimentación, intestino y malestar habitual.",
       "Aporta una base simple para empezar a tomar decisiones más conscientes.",
     ],
+    bonusTitle: "Incluye 7 Bonus:",
+    bonusItems: [
+      { label: "Reset Intestinal De 7 Días", href: "#reset-intestinal-bonus" },
+      { label: "30 Alimentos Para Nutrir Tu Microbiota", href: "#alimentos-portada" },
+      { label: "Intestino y Emociones", href: "#intestino-emociones-portada" },
+      { label: "Dormir Para Desinflamar", href: "#dormir-desinflamar-portada" },
+      { label: "Respirar Para Volver Al Equilibrio", href: "#respirar-equilibrio-portada" },
+      { label: "21 Desayunos Desinflamatorios", href: "#desayunos-desinflamatorios-portada" },
+      { label: "Diario SANALAB - Escuchá Tu cuerpo", href: "#diario-sanalab-portada" },
+    ],
   },
   {
     slug: "reset-intestinal",
-    title: "Reset Intestinal de 7 días",
-    coverImage: "/img/reset intestinal de 7 dias.png",
+    title: "Piel desde adentro",
+    coverImage: "/img/piel desde adentro.png",
     description:
-      "Un ebook práctico para ordenar tu alimentación, aliviar la sobrecarga digestiva y reconectar con señales básicas del cuerpo.",
+      "Alimentación, microbiota y hábitos para acompañar una piel más luminosa y equilibrada.",
     benefits: [
-      "Bajá la sensación de pesadez digestiva.",
-      "Recuperá una rutina más clara y simple.",
-      "Reconectá con señales básicas del cuerpo.",
+      "Entendé qué factores pueden influir en la piel.",
+      "Observá la relación entre alimentación, digestión y brotes.",
+      "Acompañá la piel desde una mirada más integral.",
     ],
     modalSummary:
-      "Pensado como una guía de reorganización, este ebook propone una mirada práctica para bajar la sobrecarga digestiva y volver a una base más simple y sostenible.",
+      "Un pack creado para entender que la piel no se cuida solo desde afuera. La alimentación, la digestión, el descanso, el estrés, la hidratación y los hábitos diarios también pueden influir en cómo se ve y se siente la piel.",
     modalHighlights: [
-      "Te acompaña a ordenar comidas y hábitos con una lógica más amable.",
-      "Sirve para momentos en los que sentís el cuerpo saturado o confuso.",
-      "Buscá más claridad, no perfección: ese es el espíritu del material.",
+      "Herramientas para observar qué factores pueden estar relacionados con una piel apagada, sensible, inflamada o con brotes.",
+      "Ideas para acompañar la piel desde una mirada más integral, amorosa y consciente.",
+      "Un recorrido para integrar alimentación, microbiota y hábitos en tu bienestar diario.",
     ],
   },
   {
     slug: "desayunos-antiinflamatorios",
-    title: "30 Alimentos Para Nutrir Tu Microbiota",
-    coverImage: "/img/30 alimentos para nutrir tu microbiota.png",
+    title: "No es la edad, son tus hábitos",
+    coverImage: "/img/no es la edad son tus habitos.png",
     description:
-      "Una guía con 30 alimentos para nutrir tu microbiota y acompañar tu bienestar digestivo.",
+      "Una guía para cuidar tu energía, tu piel, tu fuerza y tu bienestar a medida que pasan los años.",
     benefits: [
-      "Conocé alimentos que acompañan tu microbiota.",
-      "Sumá ideas simples para tu alimentación diaria.",
-      "Elegí opciones más variadas y nutritivas.",
+      "Cuidá tu energía con hábitos más conscientes.",
+      "Observá cómo influyen descanso, movimiento y estrés.",
+      "Entendé el paso del tiempo desde otra mirada.",
     ],
     modalSummary:
-      "Una guía con 30 alimentos pensados para nutrir tu microbiota, sumar variedad a tu alimentación y acompañar tu bienestar digestivo de forma simple.",
+      "Un pack creado para mirar el paso del tiempo desde otro lugar. Muchas veces se asocia el cansancio, la falta de energía, la piel apagada, la pérdida de fuerza, la inflamación o el mal descanso simplemente con la edad. Sin embargo, muchas de esas señales también pueden estar relacionadas con hábitos que se fueron acumulando: cómo comemos, cómo dormimos, cómo nos movemos, cómo gestionamos el estrés y cómo nos cuidamos en la vida real.",
     modalHighlights: [
-      "Reúne alimentos clave para sumar a tu rutina diaria.",
-      "Ayuda a elegir con más claridad qué comer para nutrir tu microbiota.",
-      "Es una guía práctica si querés ordenar tu alimentación sin complicarte.",
+      "Una guía para cuidar tu energía, tu piel, tu fuerza y tu bienestar con el paso de los años.",
+      "Te ayuda a observar hábitos que pueden estar detrás del cansancio o la inflamación.",
+      "Propone una mirada más integral sobre el bienestar cotidiano.",
     ],
   },
 ];
@@ -417,8 +451,10 @@ export default function Home() {
               description={ebook.description}
               benefits={ebook.benefits}
               buyHref={`#${ebook.slug}`}
-              whatsappHref={whatsappHref}
+              whatsappHref={getCardConsultHref(ebook.slug)}
               coverImage={ebook.coverImage}
+              buyLabel="Más info"
+              priceLabel={ebook.slug === "vivir-inflamado" ? "Disponible + 7 Bonus de Regalo" : "Disponible próximamente"}
             />
           ))}
         </div>
@@ -434,12 +470,36 @@ export default function Home() {
           <a className="ebook-modal__backdrop" href="#ebooks" aria-label="Cerrar detalle" />
 
           <div className="ebook-modal__panel">
-            <div className="ebook-modal__header">
-              <p className="eyebrow">Vista del ebook</p>
-              <a className="ebook-modal__close" href="#ebooks" aria-label="Cerrar">
-                ×
-              </a>
-            </div>
+          <div className="ebook-modal__header">
+            <p className="eyebrow">Vista del ebook</p>
+            <a className="ebook-modal__close" href="#ebooks" aria-label="Cerrar">
+              ×
+            </a>
+          </div>
+
+            {ebook.slug === "vivir-inflamado" ||
+            ebook.slug === "reset-intestinal" ||
+            ebook.slug === "desayunos-antiinflamatorios" ? (
+              <div className="ebook-modal__bonus-hero">
+                <img
+                  className="ebook-modal__bonus-image"
+                  src={
+                    ebook.slug === "vivir-inflamado"
+                      ? "/img/portada.png"
+                      : ebook.slug === "reset-intestinal"
+                        ? "/img/piel portada.png"
+                        : "/img/no es la edad portada.png"
+                  }
+                  alt={
+                    ebook.slug === "vivir-inflamado"
+                      ? "Portada de Vivir Inflamado NO es Normal"
+                      : ebook.slug === "reset-intestinal"
+                        ? "Portada de Piel desde adentro"
+                        : "Portada de No es la edad, son tus hábitos"
+                  }
+                />
+              </div>
+            ) : null}
 
             <h2>{ebook.title}</h2>
             <p className="ebook-modal__summary">{ebook.modalSummary}</p>
@@ -450,17 +510,334 @@ export default function Home() {
               ))}
             </ul>
 
+            {"bonusTitle" in ebook ? (
+              <div className="ebook-modal__bonus">
+                <h3>{ebook.bonusTitle}</h3>
+                <ul className="ebook-modal__bonus-list">
+                  {ebook.bonusItems?.map((item) => (
+                    <li key={item.label} className="ebook-modal__bonus-item">
+                      <span>{item.label}</span>
+                      <a className="button button--secondary ebook-modal__bonus-button" href={item.href}>
+                        Explorar
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+
             <div className="ebook-modal__actions">
-              <a className="button button--primary" href={whatsappHref}>
-                Comprar
+              <a
+                className="button button--primary"
+                href={
+                  ebook.slug === "vivir-inflamado" ||
+                  ebook.slug === "reset-intestinal" ||
+                  ebook.slug === "desayunos-antiinflamatorios"
+                    ? getPackPurchaseHref(ebook.slug)
+                    : whatsappHref
+                }
+              >
+                {ebook.slug === "vivir-inflamado" ||
+                ebook.slug === "reset-intestinal" ||
+                ebook.slug === "desayunos-antiinflamatorios"
+                  ? "Me interesa"
+                  : "Comprar pack"}
               </a>
               <a className="button button--secondary" href="#ebooks">
                 Volver a ebooks
               </a>
             </div>
           </div>
-        </section>
+      </section>
       ))}
+
+      <section
+        className="ebook-modal ebook-modal--bonus"
+        id="intestino-emociones-portada"
+        aria-label="Detalle de Intestino y Emociones"
+      >
+        <a className="ebook-modal__backdrop" href="#ebooks" aria-label="Cerrar detalle" />
+
+        <div className="ebook-modal__panel ebook-modal__panel--bonus">
+          <div className="ebook-modal__header">
+            <p className="eyebrow">Bonus incluido</p>
+            <a className="ebook-modal__close" href="#ebooks" aria-label="Cerrar">
+              ×
+            </a>
+          </div>
+
+          <div className="ebook-modal__bonus-hero">
+            <img
+              className="ebook-modal__bonus-image"
+              src="/img/intestino y emociones portada.png"
+              alt="Portada de Intestino y Emociones"
+            />
+          </div>
+
+          <h2>Intestino y Emociones</h2>
+          <p className="ebook-modal__summary">
+            Una guía breve para entender la conexión entre digestión, estrés y
+            bienestar emocional, con una mirada simple y humana para acompañar
+            el cuerpo sin exigencias innecesarias.
+          </p>
+
+          <div className="ebook-modal__actions">
+            <a className="button button--primary" href={getPackPurchaseHref("vivir-inflamado")}>
+              Me interesa
+            </a>
+            <a className="button button--secondary" href="#vivir-inflamado">
+              Volver al ebook
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="ebook-modal ebook-modal--bonus"
+        id="dormir-desinflamar-portada"
+        aria-label="Detalle de Dormir Para Desinflamar"
+      >
+        <a className="ebook-modal__backdrop" href="#ebooks" aria-label="Cerrar detalle" />
+
+        <div className="ebook-modal__panel ebook-modal__panel--bonus">
+          <div className="ebook-modal__header">
+            <p className="eyebrow">Bonus incluido</p>
+            <a className="ebook-modal__close" href="#ebooks" aria-label="Cerrar">
+              ×
+            </a>
+          </div>
+
+          <div className="ebook-modal__bonus-hero">
+            <img
+              className="ebook-modal__bonus-image"
+              src="/img/dormir para desinflamar portada.png"
+              alt="Portada de Dormir Para Desinflamar"
+            />
+          </div>
+
+          <h2>Dormir Para Desinflamar</h2>
+          <p className="ebook-modal__summary">
+            Una guía breve para mejorar el descanso y acompañar el equilibrio del
+            cuerpo con hábitos simples, pensados para sumar calma, regularidad y
+            una noche más reparadora.
+          </p>
+
+          <div className="ebook-modal__actions">
+            <a className="button button--primary" href={getPackPurchaseHref("vivir-inflamado")}>
+              Me interesa
+            </a>
+            <a className="button button--secondary" href="#vivir-inflamado">
+              Volver al ebook
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="ebook-modal ebook-modal--bonus"
+        id="respirar-equilibrio-portada"
+        aria-label="Detalle de Respirar Para Volver Al Equilibrio"
+      >
+        <a className="ebook-modal__backdrop" href="#ebooks" aria-label="Cerrar detalle" />
+
+        <div className="ebook-modal__panel ebook-modal__panel--bonus">
+          <div className="ebook-modal__header">
+            <p className="eyebrow">Bonus incluido</p>
+            <a className="ebook-modal__close" href="#ebooks" aria-label="Cerrar">
+              ×
+            </a>
+          </div>
+
+          <div className="ebook-modal__bonus-hero">
+            <img
+              className="ebook-modal__bonus-image"
+              src="/img/respirar para volver al equilibrio portada.png"
+              alt="Portada de Respirar Para Volver Al Equilibrio"
+            />
+          </div>
+
+          <h2>Respirar Para Volver Al Equilibrio</h2>
+          <p className="ebook-modal__summary">
+            Una guía breve de respiración consciente para calmar el cuerpo,
+            acompañar el sistema nervioso y sumar una pausa simple al ritmo del
+            día con una práctica fácil de sostener.
+          </p>
+
+          <div className="ebook-modal__actions">
+            <a className="button button--primary" href={getPackPurchaseHref("vivir-inflamado")}>
+              Me interesa
+            </a>
+            <a className="button button--secondary" href="#vivir-inflamado">
+              Volver al ebook
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="ebook-modal ebook-modal--bonus"
+        id="desayunos-desinflamatorios-portada"
+        aria-label="Detalle de 21 Desayunos Desinflamatorios"
+      >
+        <a className="ebook-modal__backdrop" href="#ebooks" aria-label="Cerrar detalle" />
+
+        <div className="ebook-modal__panel ebook-modal__panel--bonus">
+          <div className="ebook-modal__header">
+            <p className="eyebrow">Bonus incluido</p>
+            <a className="ebook-modal__close" href="#ebooks" aria-label="Cerrar">
+              ×
+            </a>
+          </div>
+
+          <div className="ebook-modal__bonus-hero">
+            <img
+              className="ebook-modal__bonus-image"
+              src="/img/21 desayunos desinflamatorios portada.png"
+              alt="Portada de 21 Desayunos Desinflamatorios"
+            />
+          </div>
+
+          <h2>21 Desayunos Desinflamatorios</h2>
+          <p className="ebook-modal__summary">
+            Ideas simples para empezar el día con más energía, saciedad y
+            bienestar digestivo, pensadas para acompañarte con desayunos
+            prácticos, variados y fáciles de sostener.
+          </p>
+
+          <div className="ebook-modal__actions">
+            <a className="button button--primary" href={getPackPurchaseHref("vivir-inflamado")}>
+              Me interesa
+            </a>
+            <a className="button button--secondary" href="#vivir-inflamado">
+              Volver al ebook
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="ebook-modal ebook-modal--bonus"
+        id="diario-sanalab-portada"
+        aria-label="Detalle de Diario SANALAB Escuchá Tu Cuerpo"
+      >
+        <a className="ebook-modal__backdrop" href="#ebooks" aria-label="Cerrar detalle" />
+
+        <div className="ebook-modal__panel ebook-modal__panel--bonus">
+          <div className="ebook-modal__header">
+            <p className="eyebrow">Bonus incluido</p>
+            <a className="ebook-modal__close" href="#ebooks" aria-label="Cerrar">
+              ×
+            </a>
+          </div>
+
+          <div className="ebook-modal__bonus-hero">
+            <img
+              className="ebook-modal__bonus-image"
+              src="/img/diario sanalab portada.png"
+              alt="Portada de Diario SANALAB Escuchá Tu Cuerpo"
+            />
+          </div>
+
+          <h2>Diario SANALAB - Escuchá Tu Cuerpo</h2>
+          <p className="ebook-modal__summary">
+            Una guía de registro para observar sensaciones, hábitos y señales
+            cotidianas del cuerpo, y así acompañar tu bienestar con más
+            conciencia, claridad y presencia.
+          </p>
+
+          <div className="ebook-modal__actions">
+            <a className="button button--primary" href={getPackPurchaseHref("vivir-inflamado")}>
+              Me interesa
+            </a>
+            <a className="button button--secondary" href="#vivir-inflamado">
+              Volver al ebook
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="ebook-modal ebook-modal--bonus"
+        id="alimentos-portada"
+        aria-label="Detalle de 30 Alimentos Para Nutrir Tu Microbiota"
+      >
+        <a className="ebook-modal__backdrop" href="#ebooks" aria-label="Cerrar detalle" />
+
+        <div className="ebook-modal__panel ebook-modal__panel--bonus">
+          <div className="ebook-modal__header">
+            <p className="eyebrow">Bonus incluido</p>
+            <a className="ebook-modal__close" href="#ebooks" aria-label="Cerrar">
+              ×
+            </a>
+          </div>
+
+          <div className="ebook-modal__bonus-hero">
+            <img
+              className="ebook-modal__bonus-image"
+              src="/img/30 alimentos portada.png"
+              alt="Portada de 30 Alimentos Para Nutrir Tu Microbiota"
+            />
+          </div>
+
+          <h2>30 Alimentos Para Nutrir Tu Microbiota</h2>
+          <p className="ebook-modal__summary">
+            Una guía simple para sumar diversidad, fibra y bienestar intestinal
+            con alimentos cotidianos que acompañan tu microbiota y tu digestión
+            desde una mirada práctica y realista.
+          </p>
+
+          <div className="ebook-modal__actions">
+            <a className="button button--primary" href={getPackPurchaseHref("vivir-inflamado")}>
+              Me interesa
+            </a>
+            <a className="button button--secondary" href="#vivir-inflamado">
+              Volver al ebook
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="ebook-modal ebook-modal--bonus"
+        id="reset-intestinal-bonus"
+        aria-label="Detalle de Reset Intestinal De 7 Días"
+      >
+        <a className="ebook-modal__backdrop" href="#ebooks" aria-label="Cerrar detalle" />
+
+        <div className="ebook-modal__panel ebook-modal__panel--bonus">
+          <div className="ebook-modal__header">
+            <p className="eyebrow">Bonus incluido</p>
+            <a className="ebook-modal__close" href="#ebooks" aria-label="Cerrar">
+              ×
+            </a>
+          </div>
+
+          <div className="ebook-modal__bonus-hero">
+            <img
+              className="ebook-modal__bonus-image"
+              src="/img/reset intestinal portada.png"
+              alt="Portada de Reset Intestinal de 7 Días"
+            />
+          </div>
+
+          <h2>Reset Intestinal de 7 Días</h2>
+          <p className="ebook-modal__summary">
+            Un recorrido breve y práctico para bajar la sobrecarga digestiva,
+            ordenar la alimentación y volver a una base más simple, clara y
+            sostenible. Este bonus acompaña el proceso con una mirada amable,
+            pensada para ayudarte a reconectar con señales básicas del cuerpo.
+          </p>
+
+          <div className="ebook-modal__actions">
+            <a className="button button--primary" href={getPackPurchaseHref("vivir-inflamado")}>
+              Me interesa
+            </a>
+            <a className="button button--secondary" href="#vivir-inflamado">
+              Volver al ebook
+            </a>
+          </div>
+        </div>
+      </section>
 
       <section className="content-section content-section--contrast">
         <div className="content-grid content-grid--split">
